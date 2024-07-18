@@ -50,7 +50,7 @@ export const adminJsRouter = AdminJsExpress.buildAuthenticatedRouter(adminJs, {
                 return user
             }
         }
-        return false
+        return true
     },
     cookiePassword: 'senha-do-cookie'
 }, null, {
