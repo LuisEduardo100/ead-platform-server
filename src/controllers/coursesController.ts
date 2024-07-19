@@ -1,9 +1,9 @@
 import { Response, Request } from 'express'
-import { getPaginationParams } from 'src/helpers/getPaginationParams.js'
-import { AuthenticatedRequest } from 'src/middlewares/auth.js'
-import { coursesService } from 'src/services/coursesService.js'
-import { favoriteService } from 'src/services/favoriteService.js'
-import { likeService } from 'src/services/likesService.js'
+import { getPaginationParams } from '../helpers/getPaginationParams.js'
+import { AuthenticatedRequest } from '../middlewares/auth.js'
+import { coursesService } from '../services/coursesService.js'
+import { favoriteService } from '../services/favoriteService.js'
+import { likeService } from '../services/likesService.js'
 
 export const coursesController = {
     show: async (req: AuthenticatedRequest, res: Response) => {

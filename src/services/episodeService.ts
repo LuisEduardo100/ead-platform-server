@@ -2,7 +2,7 @@ import { Response } from 'express'
 import fs from 'fs'
 import path from 'path'
 import { dirname } from 'path'
-import { WatchTime } from 'src/models/WatchTime.js'
+import { WatchTime } from '../models/WatchTime.js'
 import { fileURLToPath } from 'url'
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

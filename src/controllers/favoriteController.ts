@@ -1,7 +1,6 @@
-import { AuthenticatedRequest } from "src/middlewares/auth.js"
-import { favoriteService } from "src/services/favoriteService.js"
+import { AuthenticatedRequest } from "../middlewares/auth.js"
+import { favoriteService } from "../services/favoriteService.js"
 import { Response } from "express"
-import { Favorite } from "src/models/Favorite.js"
 
 export const favoritesController = {
  // POST /favorites

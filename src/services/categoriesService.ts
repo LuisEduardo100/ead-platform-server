@@ -1,5 +1,5 @@
-import { Category } from "src/models/Category.js"
-import { Course } from "src/models/index.js"
+import { Category } from "../models/Category.js"
+import { Course } from "../models/index.js"
 
 export const categoryService = {
     findAllPaginated: async (page: number, perPage: number) => {

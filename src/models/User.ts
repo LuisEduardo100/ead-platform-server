@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 import { EpisodeInstance } from './Episode.js'
 
 
-type CheckPasswordCallback = (err: Error | undefined, isSame: boolean) => void
+// type CheckPasswordCallback = (err: Error | undefined, isSame: boolean) => void
 
 export interface UserAttributes {
   id: number
@@ -20,7 +20,7 @@ export interface UserAttributes {
 export interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
 export interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes {
-  checkPassword: (password: string, callbackfn: CheckPasswordCallback) => void,
+  // checkPassword: (password: string, callbackfn: CheckPasswordCallback) => void,
   Episodes?: EpisodeInstance[]
 }
 
@@ -73,10 +73,20 @@ export const User = database.define<UserInstance, UserAttributes>('users', {
   }
 })
 
-//@ts-ignore
-User.prototype.checkPassword = function(password: string, callbackfn: CheckPasswordCallback) {
-  //@ts-ignore
-  bcrypt.compare(password, this.password, (err, isSame) => {
+// //@ts-ignore
+// User.prototype.checkPassword = function(password: string, callbackfn: CheckPasswordCallback) {
+//   //@ts-ignore
+//   bcrypt.compare(password, this.password, (err, isSame) => {
+//     if (err) {
+//       callbackfn(err, false)
+//     } else {
+//       callbackfn(err, isSame)
+//     }
+//   })
+// }
+
+export function checkPassword(password: string, userPassword: string, callbackfn: (err: Error | undefined, isSame: boolean) => void) {
+  bcrypt.compare(password, userPassword, (err, isSame) => {
     if (err) {
       callbackfn(err, false)
     } else {

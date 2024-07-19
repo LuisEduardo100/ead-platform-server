@@ -1,4 +1,4 @@
-import { Like } from "src/models/Like.js"
+import { Like } from "../models/Like.js"
 
 export const likeService = {
     create: async (userId: number, courseId: number) => {

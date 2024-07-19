@@ -1,4 +1,4 @@
-import { Episode } from 'src/models/Episode.js'
+import { Episode } from '../models/Episode.js'
 import { Course } from '../models/Course.js'
 import { Op } from 'sequelize'
 

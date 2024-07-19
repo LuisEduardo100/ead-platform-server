@@ -7,9 +7,16 @@ import { componentLoader } from './resources/episode.js'
 import bcrypt from 'bcrypt'
 import { User } from '../models/User.js'
 import { locale } from './locale.js'
+import { ADMINJS_COOKIE_PASSWORD } from '../config/environment.js'
+import session from 'express-session'
+import connectionSession from 'connect-session-sequelize'
+
+//evitar que dados sejam armazenados na memória e armazená-los no banco de dados
+const SequelizeStore = connectionSession(session.Store)
+const store = new SequelizeStore({db: database})
+store.sync()
 
 const loader = new ComponentLoader()
-
 AdminJS.registerAdapter(AdminJsSequelize)
 
 export const adminJs = new AdminJS({
@@ -52,10 +59,12 @@ export const adminJsRouter = AdminJsExpress.buildAuthenticatedRouter(adminJs, {
         }
         return false
     },
-    cookiePassword: 'senha-do-cookie'
+    cookiePassword: ADMINJS_COOKIE_PASSWORD
 }, null, {
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: store,
+    secret: ADMINJS_COOKIE_PASSWORD
 })
 
 adminJs.watch()

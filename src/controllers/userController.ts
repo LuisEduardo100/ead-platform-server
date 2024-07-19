@@ -1,6 +1,7 @@
-import { AuthenticatedRequest } from "src/middlewares/auth.js"
-import { userService } from "src/services/userService.js"
+import { AuthenticatedRequest } from "../middlewares/auth.js"
+import { userService } from "../services/userService.js"
 import { Response } from 'express'
+import { checkPassword } from "../models/User.js"
 
 export const usersController = {
     // GET /users/current/watching
@@ -59,7 +60,7 @@ export const usersController = {
         }
 
         try {
-            user.checkPassword(currentPassword, async (err, isSame) => {
+            checkPassword(currentPassword, user.password,async (err, isSame) => {
                 if (err) {
                     return res.status(400).json({ message: err.message })
                 }

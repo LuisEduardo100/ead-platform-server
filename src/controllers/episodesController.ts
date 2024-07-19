@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { AuthenticatedRequest } from 'src/middlewares/auth.js'
-import { episodeService } from 'src/services/episodeService.js'
+import { AuthenticatedRequest } from '../middlewares/auth.js'
+import { episodeService } from '../services/episodeService.js'
 
 export const episodesController = {
     // GET /episodes/stream

@@ -1,8 +1,7 @@
 import { Request, Response } from 'express'
-import { userService } from 'src/services/userService.js'
-import { jwtService } from 'src/services/jwtService.js'
-import { checkPassword } from 'src/models/User.js'
-import { User } from 'src/models/User.js'
+import { userService } from '../services/userService.js'
+import { jwtService } from '../services/jwtService.js'
+import { checkPassword } from '../models/User.js'
 export const authController = {
     register: async (req: Request, res: Response) => {
         const { firstName, lastName, email, password, birth, phone } = req.body
@@ -37,7 +36,7 @@ export const authController = {
                 return res.status(401).json({ message: 'E-mail não registrado' })
             }
 
-            user.checkPassword(password, (err, isSame) => {
+            checkPassword(password, user.password, (err, isSame) => {
                 if (err) {
                     return res.status(400).json({ message: "Entrnado no primeiro if: "+err.message })
                 }

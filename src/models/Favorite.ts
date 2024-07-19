@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize"
 import { CourseInstance } from "./Course.js"
 import { UserInstance } from "./User.js"
-import { database } from "src/database/index.js"
+import { database } from "../database/index.js"
 
 export interface Favorite {
     userId: number

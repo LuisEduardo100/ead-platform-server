@@ -1,5 +1,5 @@
-import { AuthenticatedRequest } from "src/middlewares/auth.js";
-import { likeService } from "src/services/likesService.js";
+import { AuthenticatedRequest } from "../middlewares/auth.js";
+import { likeService } from "../services/likesService.js";
 import { Response } from 'express'
 
 export const likesController = {
