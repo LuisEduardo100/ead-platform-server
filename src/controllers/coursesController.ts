@@ -4,6 +4,8 @@ import { AuthenticatedRequest } from '../middlewares/auth.js'
 import { coursesService } from '../services/coursesService.js'
 import { favoriteService } from '../services/favoriteService.js'
 import { likeService } from '../services/likesService.js'
+import { episodeService } from 'src/services/episodeService.js'
+import { WatchTime } from 'src/models/WatchTime.js'
 
 export const coursesController = {
     show: async (req: AuthenticatedRequest, res: Response) => {
@@ -12,12 +14,34 @@ export const coursesController = {
 
         try {
             const course = await coursesService.findByIdWithEpisodes(courseId)
-
+            
             if (!course) return res.status(404).json({message: 'Curso não encontrado'})
+            
             const liked = await likeService.isLiked(userId, Number(courseId))
             const favorited = await favoriteService.isFavorited(userId, Number(courseId))
+            const episodes = course.Episodes;
+            const watchStatus = await Promise.all(
+                episodes.map(async (episode: any) => {
+                    const watchTime = await WatchTime.findOne({
+                        where: {
+                            userId,
+                            episodeId: episode.id
+                        }
+                    });
+                    const isWatching = watchTime
+                        ? watchTime.seconds > (episode.secondsLong *0.5)
+                        : false;
 
-            return res.json({...course.get(), favorited, liked })
+                        return {
+                            isWatching
+                        };
+                })
+            );
+            const watchingStatusTrue = watchStatus.filter(status => status.isWatching)
+            
+            const isWatching = watchingStatusTrue.length > 0 && watchingStatusTrue.length < watchStatus.length;
+
+            return res.json({...course.get(), favorited, liked, isWatching  })
         } catch (err) {
             if (err instanceof Error) {
                 return res.status(400).json({ message: + "O erro foi: " + err.message })

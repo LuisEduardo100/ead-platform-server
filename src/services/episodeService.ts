@@ -65,7 +65,6 @@ export const episodeService = {
         episodeId
       }
     })
-
     return watchTime
   },
   setWatchTime: async (userId: number, episodeId: number, seconds: number) => {

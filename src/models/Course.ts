@@ -14,7 +14,10 @@ export interface Course {
 
 export interface CourseCreationAttributes extends Optional<Course, 'id' | 'thumbnailUrl' | 'featured' > {}
 
-export interface CourseInstance extends Model<Course, CourseCreationAttributes>, Course {}
+export interface CourseInstance extends Model<Course, CourseCreationAttributes>, Course {
+    Episodes: any;
+    watchStatus: any;
+}
 
 export const Course = database.define<CourseInstance, Course>('Course', {
     id: {
