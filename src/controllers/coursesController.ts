@@ -19,8 +19,9 @@ export const coursesController = {
             
             const liked = await likeService.isLiked(userId, Number(courseId))
             const favorited = await favoriteService.isFavorited(userId, Number(courseId))
+            
             const episodes = course.Episodes;
-            const watchStatus = await Promise.all(
+            const watchStatusArray = await Promise.all(
                 episodes.map(async (episode: any) => {
                     const watchTime = await WatchTime.findOne({
                         where: {
@@ -33,15 +34,17 @@ export const coursesController = {
                         : false;
 
                         return {
-                            isWatching
+                            isWatching,
+                            episodeId: episode.id 
+                            
                         };
                 })
             );
-            const watchingStatusTrue = watchStatus.filter(status => status.isWatching)
+            const watchStatus = watchStatusArray.filter(status => status.isWatching)
             
-            const isWatching = watchingStatusTrue.length > 0 && watchingStatusTrue.length < watchStatus.length;
-
-            return res.json({...course.get(), favorited, liked, isWatching  })
+            // const isWatching = watchingStatusTrue.length > 0 && watchingStatusTrue.length < watchStatus.length;
+        
+            return res.json({...course.get(), favorited, liked, watchStatus  })
         } catch (err) {
             if (err instanceof Error) {
                 return res.status(400).json({ message: + "O erro foi: " + err.message })
