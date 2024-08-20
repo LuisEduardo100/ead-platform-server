@@ -26,6 +26,7 @@ export const episodeFileFeatures: FeatureType[] = [
         file: 'uploadFile',
       },
       uploadPath: (record, filename) => `pdfs/episode-${record.get('episodeId')}/${filename}`,
+      multiple: true,
     }),
   ]
   

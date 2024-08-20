@@ -12,7 +12,7 @@ export const EpisodeFileService = {
         })
 
         if (fileRecord) {
-            return fileRecord.fileUrl
+            return fileRecord
         } 
         return null
     },

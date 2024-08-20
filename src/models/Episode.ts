@@ -21,6 +21,7 @@ export interface EpisodeInstance
   extends Model<Episode, EpisodeCreationAttributes>, Episode {
   course?: CourseInstance
   watchTime?: WatchTimeInstance
+  Files?: EpisodeFileInstance[]
 }
 
 export const Episode = database.define<EpisodeInstance, Episode>('Episode', {

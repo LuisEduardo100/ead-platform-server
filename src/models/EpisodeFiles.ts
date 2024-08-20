@@ -30,6 +30,6 @@ export const EpisodeFile = database.define<EpisodeFileInstance, EpisodeFileAttri
     onDelete: 'RESTRICT'
   },
   fileUrl: {
-    type: DataTypes.STRING
+    type: DataTypes.ARRAY(DataTypes.STRING)
   }
 })

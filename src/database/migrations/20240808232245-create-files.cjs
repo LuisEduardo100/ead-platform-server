@@ -2,17 +2,20 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('files', {
       id: {
         allowNull: false,
         autoIncrement: true,
-        type: Sequelize.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        type: Sequelize.DataTypes.INTEGER
       },
       name: {
         allowNull: false,
-        type: Sequelize.DataTypes.STRING,
+        type: Sequelize.DataTypes.STRING
+      },
+      file_url: {
+        type: Sequelize.DataTypes.ARRAY(Sequelize.DataTypes.STRING)
       },
       episode_id: {
         allowNull: false,
@@ -20,9 +23,6 @@ module.exports = {
         references: { model: 'episodes', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'RESTRICT'
-      },
-      file_url: {
-        type: Sequelize.DataTypes.STRING
       },
       created_at: {
         allowNull: false,
@@ -34,7 +34,7 @@ module.exports = {
       }
     })
   },
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('files')
   }
 };
