@@ -27,6 +27,7 @@ User.belongsToMany(Course, { through: Like })
 User.belongsToMany(Episode, { through: WatchTime })
 User.hasMany(Favorite, { as: 'favoritesCourses', foreignKey: 'user_id' })
 
+
 export {
   Category,
   Course,

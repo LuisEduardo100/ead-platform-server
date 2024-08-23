@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 3000
 app.use(cors())
 app.use(express.static('public'))
 app.use(express.static('files'))
+app.use(express.static('quizzFiles'))
 app.use(express.json())
 app.use(router)
 

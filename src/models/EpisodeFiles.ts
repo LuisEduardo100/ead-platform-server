@@ -7,7 +7,7 @@ import { Course } from './Course.js'
 export interface EpisodeFileAttributes {
   name: string
   episodeId: number
-  fileUrl: number
+  fileUrl: string
 }
 
 export interface EpisodeCreationAttributes extends Model<EpisodeFileAttributes>, EpisodeFileAttributes { }
