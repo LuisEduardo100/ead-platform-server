@@ -5,6 +5,7 @@ import { Favorite } from './Favorite.js'
 import { Like } from './Like.js'
 import { User } from './User.js'
 import { WatchTime } from './WatchTime.js'
+import { Quizz } from './Quizze.js'
 import { EpisodeFile } from './EpisodeFiles.js'
 Category.hasMany(Course)
 
@@ -13,6 +14,9 @@ Course.hasMany(Episode)
 Course.belongsToMany(User, { through: Favorite })
 Course.belongsToMany(User, { through: Like })
 Course.hasMany(Favorite, { as: 'favoritesUsers', foreignKey: 'course_id' })
+Course.hasMany(Quizz)
+
+Quizz.belongsTo(Course)
 
 Episode.belongsTo(Course)
 Episode.belongsToMany(User, { through: WatchTime })
@@ -33,6 +37,7 @@ export {
   Course,
   Episode,
   Favorite,
+  Quizz,
   Like,
   User,
   WatchTime,

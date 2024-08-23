@@ -2,6 +2,7 @@ import { Episode } from '../models/Episode.js'
 import { Course } from '../models/Course.js'
 import { Op } from 'sequelize'
 import { EpisodeFile } from 'src/models/EpisodeFiles.js'
+import { Quizz } from 'src/models/Quizze.js'
 
 export const coursesService = {
     findByIdWithEpisodes: async (id: string) => {
@@ -20,11 +21,30 @@ export const coursesService = {
                 ],
                 order: [['order', 'ASC']],
                 separate: true
-            }
+            }, 
         })
-
         return courseWithEpisodes
     },
+    getCourseWithQuizz: async (courseId: number)=> {
+        const courseWithQuizz = await Course.findByPk(courseId, {
+            attributes: ['id', 'name'],
+            include: {
+                model: Quizz,
+                as: 'Quizzes',
+                attributes: [
+                    'order',
+                    'question',
+                    'answers',
+                    ['file_url', 'fileUrl'],
+                    ['correct_answer', 'correctAnswer'],
+                    'serie',
+                    'dificuldade',
+                ]
+            }
+        })
+        return courseWithQuizz
+    }
+    ,
     getRandomFeaturedCourses: async () => {
         const featuredCourses = await Course.findAll({
             attributes: ['id', 'name', 'synopsis', ['thumbnail_url', 'thumbnailUrl']],

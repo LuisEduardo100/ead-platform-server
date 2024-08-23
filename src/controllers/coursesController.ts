@@ -14,13 +14,12 @@ export const coursesController = {
 
         try {
             const course = await coursesService.findByIdWithEpisodes(courseId)
-            
             if (!course) return res.status(404).json({message: 'Curso não encontrado'})
             
             const liked = await likeService.isLiked(userId, Number(courseId))
             const favorited = await favoriteService.isFavorited(userId, Number(courseId))
-            
             const episodes = course.Episodes;
+
             const watchStatusArray = await Promise.all(
                 episodes.map(async (episode: any) => {
                     const watchTime = await WatchTime.findOne({
@@ -32,18 +31,13 @@ export const coursesController = {
                     const isWatching = watchTime
                         ? watchTime.seconds > (episode.secondsLong *0.5)
                         : false;
-
                         return {
                             isWatching,
                             episodeId: episode.id 
-                            
                         };
                 })
             );
-            const watchStatus = watchStatusArray.filter(status => status.isWatching)
-            
-            // const isWatching = watchingStatusTrue.length > 0 && watchingStatusTrue.length < watchStatus.length;
-        
+            const watchStatus = watchStatusArray.filter(status => status.isWatching)            
             return res.json({...course.get(), favorited, liked, watchStatus  })
         } catch (err) {
             if (err instanceof Error) {
@@ -95,4 +89,18 @@ export const coursesController = {
             }
         }
     },
+    showQuizz: async (req: Request, res: Response) => {
+        const courseId = Number(req.params.id)
+
+        try {
+            const courseWithQuizz = await coursesService.getCourseWithQuizz(courseId)
+            if (!courseWithQuizz) return res.status(404).json({message: "Função showQuiz error: Curso com quizz não encontrado"})
+
+            return res.json(courseWithQuizz)  
+        } catch (error) {
+            if (error instanceof Error){
+                return res.status(400).json({message: error.message})
+            }
+        }
+    }
 }

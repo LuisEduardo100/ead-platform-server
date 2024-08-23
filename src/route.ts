@@ -21,6 +21,7 @@ router.get('/courses/newest', coursesController.newest)
 router.get('/courses/popular', ensureAuth, coursesController.popular)
 router.get('/courses/search', coursesController.search)
 router.get('/courses/:id', ensureAuth, coursesController.show)
+router.get('/course/quizz/:id', coursesController.showQuizz)
 
 router.get('/episodes/stream', ensureAuthViaQuery, episodesController.stream)
 router.get('/episodes/:id/watchTime', ensureAuth, episodesController.getWatchTime)

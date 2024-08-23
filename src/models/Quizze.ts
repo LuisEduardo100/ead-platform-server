@@ -11,6 +11,7 @@ export interface QuizzFileAttributes {
   correctAnswer: number
   serie: string
   dificuldade: string
+  order: number
 }
 
 export interface QuizzCreationAttributes extends Model<QuizzFileAttributes>, QuizzFileAttributes { }
@@ -24,6 +25,10 @@ export const Quizz = database.define<QuizzFileInstance, QuizzFileAttributes>('Qu
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
+    type: DataTypes.INTEGER
+  },
+  order: {
+    allowNull: false,
     type: DataTypes.INTEGER
   },
   dificuldade: {

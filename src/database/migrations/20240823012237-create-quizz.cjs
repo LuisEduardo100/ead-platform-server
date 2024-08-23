@@ -17,6 +17,10 @@ module.exports = {
         type: Sequelize.DataTypes.ENUM("Fácil", "Médio", "Díficil"),
         defaultValue: "Médio"
       },
+      order: {
+        allowNull: false,
+        type: Sequelize.DataTypes.INTEGER
+      },
       serie: {
         allowNull: false,
         type: Sequelize.DataTypes.ENUM("6º ano", "7º ano", "8º ano", "9º ano"),
