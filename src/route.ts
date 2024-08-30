@@ -7,6 +7,7 @@ import { ensureAuth, ensureAuthViaQuery } from './middlewares/auth.js'
 import { likesController } from './controllers/likesController.js'
 import { favoritesController } from './controllers/favoriteController.js'
 import { usersController } from './controllers/userController.js'
+import { quizResultController } from './controllers/quizResultController.js'
 
 const router = express.Router()
 
@@ -21,7 +22,10 @@ router.get('/courses/newest', coursesController.newest)
 router.get('/courses/popular', ensureAuth, coursesController.popular)
 router.get('/courses/search', coursesController.search)
 router.get('/courses/:id', ensureAuth, coursesController.show)
-router.get('/course/quizz/:id', coursesController.showQuizz)
+router.get('/course/quizz/:id', ensureAuth, coursesController.showQuizz)
+
+router.get('/courses/:id/quizzResult', ensureAuth, quizResultController.showQuizResult)
+router.post('/courses/:id/quizzResult', ensureAuth,quizResultController.setQuizResult)
 
 router.get('/episodes/stream', ensureAuthViaQuery, episodesController.stream)
 router.get('/episodes/:id/watchTime', ensureAuth, episodesController.getWatchTime)

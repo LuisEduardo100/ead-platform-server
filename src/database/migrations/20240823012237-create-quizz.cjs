@@ -14,7 +14,7 @@ module.exports = {
       },
       dificuldade: {
         allowNull: false,
-        type: Sequelize.DataTypes.ENUM("Fácil", "Médio", "Díficil"),
+        type: Sequelize.DataTypes.ENUM("Fácil", "Médio", "Dífícil"),
         defaultValue: "Médio"
       },
       order: {

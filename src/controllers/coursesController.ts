@@ -6,6 +6,7 @@ import { favoriteService } from '../services/favoriteService.js'
 import { likeService } from '../services/likesService.js'
 import { episodeService } from 'src/services/episodeService.js'
 import { WatchTime } from 'src/models/WatchTime.js'
+import { QuizzResult } from 'src/models/QuizzResults.js'
 
 export const coursesController = {
     show: async (req: AuthenticatedRequest, res: Response) => {
@@ -14,8 +15,8 @@ export const coursesController = {
 
         try {
             const course = await coursesService.findByIdWithEpisodes(courseId)
-            if (!course) return res.status(404).json({message: 'Curso não encontrado'})
-            
+            if (!course) return res.status(404).json({ message: 'Curso não encontrado' })
+
             const liked = await likeService.isLiked(userId, Number(courseId))
             const favorited = await favoriteService.isFavorited(userId, Number(courseId))
             const episodes = course.Episodes;
@@ -29,16 +30,16 @@ export const coursesController = {
                         }
                     });
                     const isWatching = watchTime
-                        ? watchTime.seconds > (episode.secondsLong *0.5)
+                        ? watchTime.seconds > (episode.secondsLong * 0.5)
                         : false;
-                        return {
-                            isWatching,
-                            episodeId: episode.id 
-                        };
+                    return {
+                        isWatching,
+                        episodeId: episode.id
+                    };
                 })
             );
-            const watchStatus = watchStatusArray.filter(status => status.isWatching)            
-            return res.json({...course.get(), favorited, liked, watchStatus  })
+            const watchStatus = watchStatusArray.filter(status => status.isWatching)
+            return res.json({ ...course.get(), favorited, liked, watchStatus })
         } catch (err) {
             if (err instanceof Error) {
                 return res.status(400).json({ message: + "O erro foi: " + err.message })
@@ -94,13 +95,45 @@ export const coursesController = {
 
         try {
             const courseWithQuizz = await coursesService.getCourseWithQuizz(courseId)
-            if (!courseWithQuizz) return res.status(404).json({message: "Função showQuiz error: Curso com quizz não encontrado"})
+            if (!courseWithQuizz) return res.status(404).json({ message: "Função showQuiz error: Curso com quizz não encontrado" })
 
-            return res.json(courseWithQuizz)  
+            return res.json(courseWithQuizz)
         } catch (error) {
-            if (error instanceof Error){
-                return res.status(400).json({message: error.message})
+            if (error instanceof Error) {
+                return res.status(400).json({ message: error.message })
             }
         }
-    }
+    },
+    saveQuizResult: async (req: Request, res: Response) => {
+        const { userId, courseId, score } = req.body;
+
+        try {
+            // Verifica se já existe um resultado para esse usuário e quiz
+            let quizResult = await QuizzResult.findOne({
+                where:
+                {
+                    userId,
+                    courseId
+                }
+
+            });
+
+            if (quizResult) {
+                quizResult.score = score;
+                quizResult.createdAt = new Date();
+            } else {
+                quizResult = await QuizzResult.create({
+                    userId,
+                    courseId,
+                    score,
+                    createdAt: new Date(),
+                });
+            }
+
+            await quizResult.save();
+            res.status(200).json(quizResult);
+        } catch (error) {
+            res.status(500).json({ error: 'Erro ao salvar o resultado do quiz' });
+        }
+    },
 }

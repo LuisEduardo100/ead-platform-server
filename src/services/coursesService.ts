@@ -1,7 +1,6 @@
 import { Episode } from '../models/Episode.js'
 import { Course } from '../models/Course.js'
 import { Op } from 'sequelize'
-import { EpisodeFile } from 'src/models/EpisodeFiles.js'
 import { Quizz } from 'src/models/Quizze.js'
 
 export const coursesService = {
@@ -108,5 +107,6 @@ export const coursesService = {
             total: count
         }
     },
+    
 
 }
