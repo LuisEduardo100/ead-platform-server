@@ -25,13 +25,13 @@ export const QuizResultService = {
         }
     },
     getQuizResult: async (userId: string | number, courseId: string | number) => {
-        const watchTime = await QuizzResult.findOne({
-            attributes: ['score'],
+        const quizResult = await QuizzResult.findOne({
+            attributes: ['userId','score', ['created_at', 'createdAt']],
             where: {
                 userId,
                 courseId
             }
         })
-        return watchTime
+        return quizResult
     },
 }
