@@ -2,6 +2,7 @@ import { database } from '../database/index.js'
 import { DataTypes,  Model, Optional } from 'sequelize'
 import bcrypt from 'bcrypt'
 import { EpisodeInstance } from './Episode.js'
+import { allowOverride } from 'adminjs'
 
 
 // type CheckPasswordCallback = (err: Error | undefined, isSame: boolean) => void
@@ -15,9 +16,11 @@ export interface UserAttributes {
   email: string
   password: string
   role: 'admin' | 'user'
+  hasFullAccess: boolean
+  sessionId: string
 }
 
-export interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
+export interface UserCreationAttributes extends Optional<UserAttributes,  'id' | 'sessionId'> {}
 
 export interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes {
   // checkPassword: (password: string, callbackfn: CheckPasswordCallback) => void,
@@ -62,7 +65,13 @@ export const User = database.define<UserInstance, UserAttributes>('users', {
   role: {
     allowNull: false,
     type: DataTypes.STRING
-  }
+  },
+  hasFullAccess: {
+    type: DataTypes.BOOLEAN,
+  }, 
+  sessionId: {
+    type: DataTypes.STRING
+  },
 }, {
   hooks: {
     beforeSave: async (user) => {

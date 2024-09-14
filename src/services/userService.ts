@@ -24,7 +24,7 @@ function filterLastEpisodeFromEachCourse(episodes: EpisodeInstance[]) {
     }, [] as EpisodeInstance[])
   
     return lastEpisodes
-  }
+}
 
 export const userService = {
     findByEmail: async (email: string) => {
@@ -98,5 +98,6 @@ export const userService = {
         // @ts-ignore
         keepWatchingList.sort((a, b) => a.watchTime.updatedAt < b.watchTime.updatedAt ? 1 : -1)
         return keepWatchingList
-      }
-}
+      }, 
+
+    }

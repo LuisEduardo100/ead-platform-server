@@ -46,6 +46,13 @@ module.exports = {
       updated_at: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      has_full_access: {
+        type: Sequelize.DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      session_id: {
+        type: Sequelize.DataTypes.STRING,
       }
     })
   },

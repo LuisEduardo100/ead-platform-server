@@ -8,15 +8,17 @@ import { router } from './route.js'
 import cors from 'cors'
 
 const app = express()
-const PORT = process.env.PORT || 3000
 
-app.use(cors())
+const PORT = process.env.PORT || 3000 || 4040 || 8080
+
 app.use(express.static('public'))
 app.use(express.static('files'))
-app.use(express.json())
 app.use(router)
+app.use(express.json())
+app.use(cors())
 
 app.use(adminJs.options.rootPath, adminJsRouter)
+
 
 app.listen(PORT, () => {
     database.authenticate().then(() => {

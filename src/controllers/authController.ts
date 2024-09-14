@@ -17,7 +17,8 @@ export const authController = {
                 phone,
                 email,
                 password,
-                role: 'user'
+                role: 'user',
+                hasFullAccess: false
             })
 
             return res.status(201).json(user)
@@ -48,7 +49,8 @@ export const authController = {
                 const payload = {
                     id: user.id,
                     firstName: user.firstName,
-                    email: user.email
+                    email: user.email,
+                    hasFullAccess: user.hasFullAccess
                 }
 
                 const token = jwtService.signToken(payload, '7d')

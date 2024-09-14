@@ -8,8 +8,15 @@ import { likesController } from './controllers/likesController.js'
 import { favoritesController } from './controllers/favoriteController.js'
 import { usersController } from './controllers/userController.js'
 import { quizResultController } from './controllers/quizResultController.js'
+import { stripeController } from './controllers/stripeController.js'
+
 
 const router = express.Router()
+
+
+router.get('/subscribe', stripeController.stripeSubscribe)
+router.get('/customers/:customerId', stripeController.stripeCustomers)
+router.post('/webhook', express.raw({type: 'application/json'}), stripeController.stripeWebhook)
 
 router.post('/auth/register', authController.register)
 router.post('/auth/login', authController.login)
