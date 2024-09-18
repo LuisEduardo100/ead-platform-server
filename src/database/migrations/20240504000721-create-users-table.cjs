@@ -51,6 +51,12 @@ module.exports = {
         type: Sequelize.DataTypes.BOOLEAN,
         defaultValue: false
       },
+      subscription: {
+        type: Sequelize.DataTypes.STRING,
+      },
+      customer_id: {
+        type: Sequelize.DataTypes.STRING,
+      },
       session_id: {
         type: Sequelize.DataTypes.STRING,
       }

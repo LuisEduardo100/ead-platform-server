@@ -18,6 +18,8 @@ export interface UserAttributes {
   role: 'admin' | 'user'
   hasFullAccess: boolean
   sessionId: string
+  subscription: string
+  customerId: string
 }
 
 export interface UserCreationAttributes extends Optional<UserAttributes,  'id' | 'sessionId'> {}
@@ -72,6 +74,12 @@ export const User = database.define<UserInstance, UserAttributes>('users', {
   sessionId: {
     type: DataTypes.STRING
   },
+  customerId: {
+    type: DataTypes.STRING
+  },
+  subscription: {
+    type: DataTypes.STRING
+  }
 }, {
   hooks: {
     beforeSave: async (user) => {

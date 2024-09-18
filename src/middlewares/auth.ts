@@ -33,7 +33,6 @@ export async function ensureAuth(req: AuthenticatedRequest, res: Response, next:
         }
 
         req.user = user;
-
         next()
     });
 }

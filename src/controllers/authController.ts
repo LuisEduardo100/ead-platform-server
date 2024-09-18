@@ -18,7 +18,9 @@ export const authController = {
                 email,
                 password,
                 role: 'user',
-                hasFullAccess: false
+                hasFullAccess: false,
+                customerId: '',
+                subscription: '',
             })
 
             return res.status(201).json(user)
