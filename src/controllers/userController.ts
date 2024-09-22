@@ -1,7 +1,9 @@
 import { AuthenticatedRequest } from "../middlewares/auth.js"
 import { userService } from "../services/userService.js"
 import { Response } from 'express'
-import { checkPassword } from "../models/User.js"
+import { checkPassword, User } from "../models/User.js"
+import path from "path";
+import upload from "src/middlewares/upload.js";
 
 export const usersController = {
     // GET /users/current/watching
@@ -60,7 +62,7 @@ export const usersController = {
         }
 
         try {
-            checkPassword(currentPassword, user.password,async (err, isSame) => {
+            checkPassword(currentPassword, user.password, async (err, isSame) => {
                 if (err) {
                     return res.status(400).json({ message: err.message })
                 }
@@ -77,5 +79,35 @@ export const usersController = {
                 return res.status(400).json({ message: err.message })
             }
         }
-    }
+    },
+    // POST /users/current/profileImage
+    uploadProfilePicture: async (req: AuthenticatedRequest, res: Response) => {
+        const { id } = req.user!; // ID do usuário autenticado
+
+        // Middleware de upload do multer
+        upload(req, res, async (err) => {
+            if (err) {
+                return res.status(400).json({ message: err.message });
+            }
+
+            if (!req.file) {
+                return res.status(400).json({ message: 'Nenhum arquivo enviado' });
+            }
+
+            // Caminho completo da imagem
+            const profilePicturePath = path.join('images', `user-id-${id}`, req.file.filename).replace(/\\/g, '/')
+
+            try {
+                // Atualizar o caminho da imagem no banco de dados
+                const updatedUser = await userService.updateProfilePicture(id, profilePicturePath);
+
+                // Retornar o usuário atualizado
+                return res.json(updatedUser);
+            } catch (err) {
+                if (err instanceof Error) {
+                    return res.status(400).json({ message: err.message });
+                }
+            }
+        });
+    },
 }

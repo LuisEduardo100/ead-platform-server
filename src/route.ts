@@ -50,6 +50,6 @@ router.get('/users/current', express.json(), ensureAuth, usersController.show)
 router.get('/users/current/watching', express.json(), ensureAuth, usersController.watching)
 router.put('/users/current', express.json(), ensureAuth, usersController.update)
 router.put('/users/current/password', express.json(), ensureAuth, usersController.updatePassword)
-
+router.post('/users/current/profileImage', express.json(), ensureAuth, usersController.uploadProfilePicture);
 
 export { router }

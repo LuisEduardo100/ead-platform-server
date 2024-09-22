@@ -14,6 +14,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DataTypes.STRING
       },
+      profile_image: {
+        type: Sequelize.DataTypes.STRING
+      },
       last_name: {
         allowNull: false,
         type: Sequelize.DataTypes.STRING

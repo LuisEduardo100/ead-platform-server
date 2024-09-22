@@ -28,10 +28,12 @@ export const episodeResourceFeatures: FeatureType[] = [
       key: 'videoUrl',
       file: 'uploadVideo',
     },
-    validation: {
-      maxSize: 500 * 1024 * 1024,
+    validation:{
+      maxSize: 1024 * 1024 * 1024 // 1gb
     },
-    uploadPath: (record, filename) => `videos/course-${record.get('courseId')}/${filename}`,
+    uploadPath: (record, filename) => {
+      return `videos/course-${record.get('courseId')}/${filename}`;
+    },
   }),
 ]
 

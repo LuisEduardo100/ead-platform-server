@@ -20,6 +20,7 @@ export interface UserAttributes {
   sessionId: string
   subscription: string
   customerId: string
+  profileImage: string
 }
 
 export interface UserCreationAttributes extends Optional<UserAttributes,  'id' | 'sessionId'> {}
@@ -42,6 +43,9 @@ export const User = database.define<UserInstance, UserAttributes>('users', {
   },
   lastName: {
     allowNull: false,
+    type: DataTypes.STRING
+  },
+  profileImage: {
     type: DataTypes.STRING
   },
   phone: {

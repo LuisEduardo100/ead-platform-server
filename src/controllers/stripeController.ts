@@ -88,7 +88,6 @@ export const stripeController = {
             }
             case 'invoice.payment_failed': {
                 const invoice = event.data.object;
-                const subscriptionId = invoice.subscription;
                 const user = await User.findOne({ where: { sessionId: invoice.id } });
 
                 if (user) {

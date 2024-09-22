@@ -99,5 +99,11 @@ export const userService = {
         keepWatchingList.sort((a, b) => a.watchTime.updatedAt < b.watchTime.updatedAt ? 1 : -1)
         return keepWatchingList
       }, 
-
+      updateProfilePicture: async (id: string | number, profilePicturePath: string) => {
+        const [affectedRows, updatedUsers] = await User.update(
+          { profileImage: profilePicturePath }, 
+          { where: { id }, returning: true }
+        );
+        return updatedUsers[0];
+      },
     }
