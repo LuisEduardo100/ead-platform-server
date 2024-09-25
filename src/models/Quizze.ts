@@ -33,7 +33,8 @@ export const Quizz = database.define<QuizzFileInstance, QuizzFileAttributes>('Qu
   },
   dificuldade: {
     allowNull: false,
-    type: DataTypes.ENUM("Fácil", "Médio", "Difícil")
+    type: DataTypes.ENUM("Fácil", "Médio", "Difícil"),
+    defaultValue: "Médio"
   },
   serie: {
     allowNull: false,

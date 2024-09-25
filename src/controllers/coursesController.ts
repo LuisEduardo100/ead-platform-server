@@ -4,7 +4,6 @@ import { AuthenticatedRequest } from '../middlewares/auth.js'
 import { coursesService } from '../services/coursesService.js'
 import { favoriteService } from '../services/favoriteService.js'
 import { likeService } from '../services/likesService.js'
-import { episodeService } from 'src/services/episodeService.js'
 import { WatchTime } from 'src/models/WatchTime.js'
 import { QuizzResult } from 'src/models/QuizzResults.js'
 

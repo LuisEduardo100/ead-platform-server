@@ -29,7 +29,7 @@ export const episodeResourceFeatures: FeatureType[] = [
       file: 'uploadVideo',
     },
     validation:{
-      maxSize: 1024 * 1024 * 1024 // 1gb
+      maxSize: 1073741824 // 1gb
     },
     uploadPath: (record, filename) => {
       return `videos/course-${record.get('courseId')}/${filename}`;

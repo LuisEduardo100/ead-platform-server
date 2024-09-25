@@ -30,6 +30,7 @@
     "@tinymce/tinymce-react": "^5.1.1",
     "@types/cors": "^2.8.17",
     "@types/express-fileupload": "^1.5.1",
+    "@types/express-formidable": "^1.2.3",
     "@types/mocha": "^10.0.6",
     "@types/multer": "^1.4.12",
     "adminjs": "^7.6.1",

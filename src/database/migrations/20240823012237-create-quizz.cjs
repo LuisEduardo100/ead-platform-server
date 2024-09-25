@@ -14,7 +14,7 @@ module.exports = {
       },
       dificuldade: {
         allowNull: false,
-        type: Sequelize.DataTypes.ENUM("Fácil", "Médio", "Dífícil"),
+        type: Sequelize.DataTypes.ENUM("Fácil", "Médio", "Difícil"),  // Atualize para "Difícil" com acento
         defaultValue: "Médio"
       },
       order: {
