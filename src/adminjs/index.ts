@@ -63,7 +63,8 @@ export const adminJsRouter = AdminJsExpress.buildAuthenticatedRouter(adminJs, {
     resave: false,
     saveUninitialized: false,
     store: store,
-    secret: ADMINJS_COOKIE_PASSWORD
+    secret: ADMINJS_COOKIE_PASSWORD,
+
 })
 
 adminJs.watch()
