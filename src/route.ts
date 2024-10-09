@@ -13,7 +13,6 @@ import { stripeController } from './controllers/stripeController.js'
 
 const router = express.Router()
 
-
 router.get('/subscribe', ensureAuth, stripeController.stripeSubscribe)
 router.get('/customers/:customerId', stripeController.stripeCustomers)
 router.post('/webhook', express.raw({ type: 'application/json' }), stripeController.stripeWebhook)

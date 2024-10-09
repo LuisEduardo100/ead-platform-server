@@ -28,7 +28,7 @@ export const episodeResourceFeatures: FeatureType[] = [
       key: 'videoUrl',
       file: 'uploadVideo',
     },
-    validation:{
+    validation: {
       maxSize: 1073741824 // 1gb
     },
     uploadPath: (record, filename) => {
