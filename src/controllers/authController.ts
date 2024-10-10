@@ -14,6 +14,7 @@ export const authController = {
                 firstName,
                 lastName,
                 birth,
+                profileImage: '',
                 phone,
                 email,
                 password,
