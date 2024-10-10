@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import { database } from "src/database/index.js";
+import { database } from "../database/index.js";
 
 
 interface QuizzResultAttributes {

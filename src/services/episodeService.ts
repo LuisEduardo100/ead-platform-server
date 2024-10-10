@@ -4,8 +4,8 @@ import path from 'path'
 import { dirname } from 'path'
 import { WatchTime } from '../models/WatchTime.js'
 import { fileURLToPath } from 'url'
-import { EpisodeFile, EpisodeFileInstance } from 'src/models/EpisodeFiles.js'
-import { Episode, EpisodeInstance } from 'src/models/Episode.js'
+import { EpisodeFile } from '../models/EpisodeFiles.js'
+import { Episode } from '../models/Episode.js'
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const episodeService = {

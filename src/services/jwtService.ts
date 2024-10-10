@@ -1,7 +1,6 @@
 
 import jwt from 'jsonwebtoken'
 import { JWT_KEY } from '../config/environment.js'
-import { User } from 'src/models/User.js'
 
 const secret = JWT_KEY
 

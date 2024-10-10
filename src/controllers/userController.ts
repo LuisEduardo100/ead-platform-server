@@ -3,7 +3,7 @@ import { userService } from "../services/userService.js"
 import { Response } from 'express'
 import { checkPassword, User } from "../models/User.js"
 import path from "path";
-import upload from "src/middlewares/upload.js";
+import upload from "../middlewares/upload.js";
 
 export const usersController = {
     // GET /users/current/watching

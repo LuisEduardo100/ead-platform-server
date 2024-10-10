@@ -1,6 +1,6 @@
 import { Response } from "express";
-import { AuthenticatedRequest } from "src/middlewares/auth.js";
-import { QuizResultService } from "src/services/quizzResultService.js";
+import { AuthenticatedRequest } from "../middlewares/auth.js";
+import { QuizResultService } from "../services/quizzResultService.js";
 
 
 export const quizResultController = {

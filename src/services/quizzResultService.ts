@@ -1,5 +1,4 @@
-import { QuizzResult } from "src/models/QuizzResults.js"
-
+import { QuizzResult } from "../models/QuizzResults.js"
 
 export const QuizResultService = {
     setQuizResult: async (userId: number, courseId: number, score: number) => {

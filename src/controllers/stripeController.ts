@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import { stripe } from "src/services/stripeService.js";
-import { AuthenticatedRequest } from "src/middlewares/auth.js";
-import { User } from "src/models/User.js";
-const STRIPE_PRICE_ID = 'price_1PywmvHQFoXB7WmvvG31yvHQ'
-const STRIPE_WEBHOOK_SECRET = 'whsec_74d2c7b9555a7a89efb1b49d18e16d812da36f5284947fb853aff3385c5c7375'
+import { stripe } from "../services/stripeService.js";
+import { AuthenticatedRequest } from "../middlewares/auth.js";
+import { User } from "../models/User.js";
+import { STRIPE_PRICE_ID, STRIPE_WEBHOOK_SECRET } from "../config/environment.js";
 
 export const stripeController = {
     stripeSubscribe: async (req: AuthenticatedRequest, res: Response) => {

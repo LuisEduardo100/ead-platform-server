@@ -2,8 +2,6 @@ import { database } from '../database/index.js'
 import { DataTypes,  Model, Optional } from 'sequelize'
 import bcrypt from 'bcrypt'
 import { EpisodeInstance } from './Episode.js'
-import { allowOverride } from 'adminjs'
-
 
 // type CheckPasswordCallback = (err: Error | undefined, isSame: boolean) => void
 
