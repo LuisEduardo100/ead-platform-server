@@ -1,6 +1,6 @@
 node_modules/
 uploads/videos
-files/pdfs/*
+files/*
 public/thumbnails
 .adminjs
 dist/
