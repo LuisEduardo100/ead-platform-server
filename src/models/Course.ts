@@ -9,6 +9,7 @@ export interface Course {
     featuredName: string
     synopsis: string
     thumbnailUrl: string
+    featuredImage: string
     featured: boolean
     categoryId: number
 
@@ -40,6 +41,9 @@ export const Course = database.define<CourseInstance, Course>('Course', {
       type: DataTypes.TEXT
     },
     thumbnailUrl: {
+      type: DataTypes.STRING
+    },
+    featuredImage: {
       type: DataTypes.STRING
     },
     featured: {

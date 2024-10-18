@@ -24,6 +24,9 @@ module.exports = {
       thumbnail_url: {
         type: Sequelize.DataTypes.STRING
       },
+      featured_image: {
+        type: Sequelize.DataTypes.STRING
+      },
       featured: {
         defaultValue: false,
         type: Sequelize.DataTypes.BOOLEAN
