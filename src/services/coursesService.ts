@@ -6,7 +6,7 @@ import { Quizz } from '../models/Quizze.js'
 export const coursesService = {
     findByIdWithEpisodes: async (id: string) => {
         const courseWithEpisodes = await Course.findByPk(id, {
-            attributes: ['id', 'name', ['featured_name', 'featuredName'], 'synopsis', ['thumbnail_url', 'thumbnailUrl']],
+            attributes: ['id', 'name', ['featured_name', 'featuredName'], 'synopsis', ['thumbnail_url', 'thumbnailUrl'], ['featured_image', 'featuredImage']],
             include: {
                 model: Episode,
                 as: 'Episodes',
@@ -46,7 +46,7 @@ export const coursesService = {
     ,
     getRandomFeaturedCourses: async () => {
         const featuredCourses = await Course.findAll({
-            attributes: ['id', 'name',['featured_name', 'featuredName'], 'synopsis', ['thumbnail_url', 'thumbnailUrl']],
+            attributes: ['id', 'name',['featured_name', 'featuredName'], 'synopsis', ['thumbnail_url', 'thumbnailUrl'], ['featured_image', 'featuredImage']],
             where: { featured: true }
         })
 
