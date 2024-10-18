@@ -14,18 +14,19 @@ import { Quizz } from "../../models/Quizze.js";
 
 export const adminJsResources: ResourceWithOptions[] = [
   {
+    resource: Category,
+    options: categoryResourceOptions,
+    
+  },
+  {
     resource: Course,
     options: courseResourceOptions,
     features: courseResourceFeatures
   },
   {
-    resource: Category,
-    options: categoryResourceOptions
-  },
-  {
-    resource: Quizz,
-    options: quizzResourceOptions,
-    features: quizzResourceFeature
+    resource: Episode,
+    options: episodeResourceOptions,
+    features: episodeResourceFeatures
   },
   {
     resource: EpisodeFile,
@@ -33,9 +34,9 @@ export const adminJsResources: ResourceWithOptions[] = [
     options: episodeFileResourceOptions
   },
   {
-    resource: Episode,
-    options: episodeResourceOptions,
-    features: episodeResourceFeatures
+    resource: Quizz,
+    options: quizzResourceOptions,
+    features: quizzResourceFeature
   },
   {
     resource: User,

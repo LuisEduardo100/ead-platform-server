@@ -6,10 +6,12 @@ import { Category } from './Category.js'
 export interface Course {
     id: number
     name: string
+    featuredName: string
     synopsis: string
     thumbnailUrl: string
     featured: boolean
     categoryId: number
+
 }
 
 export interface CourseCreationAttributes extends Optional<Course, 'id' | 'thumbnailUrl' | 'featured' > {}
@@ -28,6 +30,9 @@ export const Course = database.define<CourseInstance, Course>('Course', {
     },
     name: {
       allowNull: false,
+      type: DataTypes.STRING
+    },
+    featuredName: {
       type: DataTypes.STRING
     },
     synopsis: {

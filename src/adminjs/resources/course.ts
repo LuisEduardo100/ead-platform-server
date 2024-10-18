@@ -7,10 +7,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const courseResourceOptions: ResourceOptions = {
   navigation: 'Catálogo',
-  editProperties: ['name', 'synopsis', 'uploadThumbnail', 'featured', 'categoryId'],
-  filterProperties: ['name', 'synopsis', 'featured', 'categoryId', 'createdAt', 'updatedAt'],
-  listProperties: ['id', 'name', 'featured', 'categoryId'],
-  showProperties: ['id', 'name', 'synopsis', 'featured', 'thumbnailUrl', 'categoryId', 'createdAt', 'updatedAt']
+  editProperties: ['name', 'featuredName', 'synopsis', 'uploadThumbnail', 'featured', 'categoryId'],
+  filterProperties: ['name', 'featuredName', 'synopsis', 'featured', 'categoryId', 'createdAt', 'updatedAt'],
+  listProperties: ['id', 'name', 'featuredName','featured', 'categoryId'],
+  showProperties: ['id', 'name', 'featuredName', 'synopsis', 'featured', 'thumbnailUrl', 'categoryId', 'createdAt', 'updatedAt']
 }
 
 export const courseResourceFeatures: FeatureType[] = [

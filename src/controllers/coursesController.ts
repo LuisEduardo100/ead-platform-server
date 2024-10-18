@@ -37,6 +37,7 @@ export const coursesController = {
                     };
                 })
             );
+            
             const watchStatus = watchStatusArray.filter(status => status.isWatching)
             return res.json({ ...course.get(), favorited, liked, watchStatus })
         } catch (err) {

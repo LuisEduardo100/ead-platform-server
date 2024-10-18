@@ -14,7 +14,7 @@ const userResourceOptions: ResourceOptions = {
                 { value: 'admin', label: 'Administrador' },
                 { value: 'user', label: 'Usuário Padrão' }
             ]
-        }
+        },
     },
     editProperties: [
         'firstName',
@@ -23,7 +23,8 @@ const userResourceOptions: ResourceOptions = {
         'birth',
         'email',
         'password',
-        'role'
+        'role',
+        'hasFullAccess'
     ],
     filterProperties: [
         'firstName',
@@ -50,7 +51,8 @@ const userResourceOptions: ResourceOptions = {
         'email',
         'role',
         'createdAt',
-        'updatedAt'
+        'updatedAt',
+        'hasFullAccess'
     ],
 }
 

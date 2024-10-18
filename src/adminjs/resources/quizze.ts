@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const quizzResourceOptions: ResourceOptions = {
-    navigation: 'Catálogo',
+    navigation: 'Arquivos e questões',
     editProperties: ['question', 'order', 'courseId', 'uploadFile', 'answers', 'correctAnswer', 'serie', 'dificuldade'],
     listProperties: ['id', 'order', 'courseId' ,'question', 'serie', 'dificuldade'],
     showProperties: ['courseId','order', 'question', 'answers', 'correctAnswer', 'serie', 'dificuldade']

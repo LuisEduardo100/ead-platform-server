@@ -14,6 +14,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DataTypes.STRING
       },
+      featured_name: {
+        type: Sequelize.DataTypes.STRING
+      },
       synopsis: {
         allowNull: false,
         type: Sequelize.DataTypes.TEXT

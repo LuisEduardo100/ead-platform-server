@@ -21,7 +21,6 @@ AdminJS.registerAdapter(AdminJsSequelize)
 export const adminJs = new AdminJS({
     databases: [database],
     rootPath: '/admin',
-    locale,
     componentLoader,
     resources: adminJsResources,
     branding: {

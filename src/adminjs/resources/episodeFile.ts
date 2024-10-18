@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const episodeFileResourceOptions: ResourceOptions = {
-    navigation: 'Catálogo',
+    navigation: 'Arquivos e questões',
     editProperties: ['name', 'episodeId', 'uploadFile'],
     listProperties: ['id', 'name', 'episodeId', 'createdAt', 'updatedAt'],
     showProperties: ['name', 'episodeId', 'fileUrl', 'createdAt', 'updatedAt']
