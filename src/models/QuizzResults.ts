@@ -1,10 +1,11 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import { database } from "../database/index.js";
+import { Episode } from "./Episode.js";
 
 
 interface QuizzResultAttributes {
     userId: number,
-    courseId: number,
+    episodeId: number,
     score: number,
     createdAt: Date,
 }
@@ -23,14 +24,11 @@ export const QuizzResult = database.define<QuizzResultInstance, QuizzResultAttri
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
     },
-    courseId: {
+    episodeId: {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.INTEGER,
-        references: {
-            model: 'courses',
-            key: 'id'
-        },
+        references: { model: 'episodes', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
     },

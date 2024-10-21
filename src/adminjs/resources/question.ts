@@ -7,9 +7,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const quizzResourceOptions: ResourceOptions = {
     navigation: 'Arquivos e questões',
-    editProperties: ['question', 'order', 'courseId', 'uploadFile', 'answers', 'correctAnswer', 'serie', 'dificuldade'],
-    listProperties: ['id', 'order', 'courseId' ,'question', 'serie', 'dificuldade'],
-    showProperties: ['courseId','order', 'question', 'answers', 'correctAnswer', 'serie', 'dificuldade']
+    editProperties: ['question', 'order', 'episodeId', 'uploadFile', 'answers', 'correctAnswer', 'serie', 'dificuldade'],
+    listProperties: ['order', 'episodeId' ,'question', 'serie', 'dificuldade'],
+    showProperties: ['episodeId','order', 'question', 'answers', 'correctAnswer', 'serie', 'dificuldade']
 }
 
 export const quizzResourceFeature: FeatureType[] = [

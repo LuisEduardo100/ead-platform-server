@@ -1,11 +1,12 @@
 import { Model, DataTypes } from 'sequelize'
 import { database } from '../database/index.js'
+import { Episode, EpisodeInstance } from './Episode.js'
 
 
 export interface QuizzFileAttributes {
   id: number
   question: string
-  courseId: number
+  episodeId: number
   fileUrl: string
   answers: string
   correctAnswer: number
@@ -17,10 +18,12 @@ export interface QuizzFileAttributes {
 export interface QuizzCreationAttributes extends Model<QuizzFileAttributes>, QuizzFileAttributes { }
 
 
-export interface QuizzFileInstance extends Model<QuizzCreationAttributes>, QuizzFileAttributes {}
+export interface QuizzFileInstance extends Model<QuizzCreationAttributes>, QuizzFileAttributes {
+  Episode?: EpisodeInstance
+}
 
 
-export const Quizz = database.define<QuizzFileInstance, QuizzFileAttributes>('Quizze', {
+export const Question = database.define<QuizzFileInstance, QuizzFileAttributes>('Questions', {
   id: {
     allowNull: false,
     primaryKey: true,
@@ -44,10 +47,10 @@ export const Quizz = database.define<QuizzFileInstance, QuizzFileAttributes>('Qu
     type: DataTypes.STRING,
     allowNull: false,
   },
-  courseId: {
+  episodeId: {
     allowNull: false,
     type: DataTypes.INTEGER,
-    references: { model: 'courses', key: 'id' },
+    references: { model: Episode, key: 'id' },
     onUpdate: 'CASCADE',
     onDelete: 'RESTRICT'
   },
@@ -61,5 +64,7 @@ export const Quizz = database.define<QuizzFileInstance, QuizzFileAttributes>('Qu
   },
   fileUrl: {
     type: DataTypes.STRING
-  },
+  }, 
+}, {
+  tableName: "questions"
 })

@@ -5,7 +5,7 @@ const { DataTypes } = require('sequelize');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('quizzes', {
+    await queryInterface.createTable('questions', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -41,12 +41,12 @@ module.exports = {
       file_url: {
         type: Sequelize.DataTypes.STRING
       },
-      course_id: {
+      episode_id: {
         allowNull: false,
         type: Sequelize.DataTypes.INTEGER,
-        references: { model: 'courses', key: 'id' },
+        references: { model: 'episodes', key: 'id' },
         onUpdate: 'CASCADE',
-        onDelete: 'RESTRICT'
+        onDelete: 'CASCADE'
       },
       created_at:{
         allowNull: false,

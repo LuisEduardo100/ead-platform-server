@@ -8,6 +8,7 @@ export interface Course {
     name: string
     featuredName: string
     synopsis: string
+    serie: string
     thumbnailUrl: string
     featuredImage: string
     featured: boolean
@@ -39,6 +40,10 @@ export const Course = database.define<CourseInstance, Course>('Course', {
     synopsis: {
       allowNull: false,
       type: DataTypes.TEXT
+    },
+    serie: {
+      allowNull: false,
+      type: DataTypes.ENUM("6º ano", "7º ano", "8º ano", "9º ano"),
     },
     thumbnailUrl: {
       type: DataTypes.STRING

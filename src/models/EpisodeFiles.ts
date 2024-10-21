@@ -1,6 +1,6 @@
 import { Model, DataTypes } from 'sequelize'
 import { database } from '../database/index.js'
-import { Episode, EpisodeInstance } from './Episode.js'
+import { Episode } from './Episode.js'
 
 
 export interface EpisodeFileAttributes {

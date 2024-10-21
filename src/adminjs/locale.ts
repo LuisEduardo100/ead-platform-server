@@ -1,8 +1,8 @@
 import { Locale } from 'adminjs'
 
 export const locale: Locale = {
-  language: 'pt',
-  availableLanguages: ['pt'], 
+  language: 'pt-BR',
+  availableLanguages: ['pt-BR', 'en'], 
   localeDetection: true, 
   translations: {
     pt: {

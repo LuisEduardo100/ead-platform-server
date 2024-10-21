@@ -1,11 +1,11 @@
 import { QuizzResult } from "../models/QuizzResults.js"
 
 export const QuizResultService = {
-    setQuizResult: async (userId: number, courseId: number, score: number) => {
+    setQuizResult: async (userId: number, episodeId: number, score: number) => {
         const QuizResultAlreadyExists = await QuizzResult.findOne({
             where: {
                 userId,
-                courseId
+                episodeId
             }
         })
 
@@ -16,19 +16,19 @@ export const QuizResultService = {
         } else {
             const newWatchTime = await QuizzResult.create({
                 userId,
-                courseId,
+                episodeId,
                 score,
                 createdAt: new Date()
             })
             return newWatchTime
         }
     },
-    getQuizResult: async (userId: string | number, courseId: string | number) => {
+    getQuizResult: async (userId: string | number, episodeId: string | number) => {
         const quizResult = await QuizzResult.findOne({
             attributes: ['userId','score', ['created_at', 'createdAt']],
             where: {
                 userId,
-                courseId
+                episodeId
             }
         })
         return quizResult
