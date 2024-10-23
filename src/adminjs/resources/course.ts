@@ -8,10 +8,10 @@ const publicDir = path.join(__dirname, '../../../public')
 
 export const courseResourceOptions: ResourceOptions = {
   navigation: 'Catálogo',
-  editProperties: ['name', 'featuredName', 'synopsis', 'uploadThumbnail', 'uploadFeaturedImage', 'featured', 'categoryId'],
-  filterProperties: ['name', 'featuredName', 'synopsis', 'featured','categoryId', 'createdAt', 'updatedAt'],
-  listProperties: ['id', 'name', 'featuredName','featured', 'categoryId'],
-  showProperties: ['id', 'name', 'featuredName', 'synopsis', 'featured', 'thumbnailUrl', 'featuredImage', 'categoryId', 'createdAt', 'updatedAt']
+  editProperties: ['name', 'featuredName', 'synopsis', 'serie', 'uploadThumbnail', 'uploadFeaturedImage', 'featured', 'categoryId'],
+  filterProperties: ['name', 'featuredName', 'synopsis', 'serie', 'featured','categoryId', 'createdAt', 'updatedAt'],
+  listProperties: ['id', 'name', 'featuredName', 'serie', 'featured', 'categoryId'],
+  showProperties: ['id', 'name', 'featuredName', 'serie', 'synopsis', 'featured', 'thumbnailUrl', 'featuredImage', 'categoryId', 'createdAt', 'updatedAt']
 }
 
 export const courseResourceFeatures: FeatureType[] = [

@@ -21,6 +21,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DataTypes.TEXT
       },
+      serie: {
+        allowNull: false,
+        type: Sequelize.DataTypes.ENUM("6º ano", "7º ano", "8º ano", "9º ano")
+      },
       thumbnail_url: {
         type: Sequelize.DataTypes.STRING
       },

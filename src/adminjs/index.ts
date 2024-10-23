@@ -6,10 +6,10 @@ import { adminJsResources } from './resources/index.js'
 import { componentLoader } from './resources/episode.js'
 import bcrypt from 'bcrypt'
 import { User } from '../models/User.js'
-import { locale } from './locale.js'
 import { ADMINJS_COOKIE_PASSWORD } from '../config/environment.js'
 import session from 'express-session'
 import connectionSession from 'connect-session-sequelize'
+import { locale } from './locale.js'
 
 //evitar que dados sejam armazenados na memória e armazená-los no banco de dados
 const SequelizeStore = connectionSession(session.Store)
@@ -21,6 +21,7 @@ AdminJS.registerAdapter(AdminJsSequelize)
 export const adminJs = new AdminJS({
     databases: [database],
     rootPath: '/admin',
+    locale: locale,
     componentLoader,
     resources: adminJsResources,
     branding: {

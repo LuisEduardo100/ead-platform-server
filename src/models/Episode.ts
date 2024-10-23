@@ -3,6 +3,7 @@ import { DataTypes, Model, Optional } from 'sequelize'
 import { Course, CourseInstance } from './Course.js'
 import { WatchTimeInstance } from './WatchTime.js'
 import { EpisodeFile, EpisodeFileInstance } from './EpisodeFiles.js'
+import { QuizzFileInstance } from './Question.js'
 
 export interface Episode {
   id: number
@@ -22,6 +23,7 @@ export interface EpisodeInstance
   course?: CourseInstance
   watchTime?: WatchTimeInstance
   Files?: EpisodeFileInstance[]
+  Questions?: QuizzFileInstance[]
 }
 
 export const Episode = database.define<EpisodeInstance, Episode>('Episode', {

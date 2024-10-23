@@ -18,7 +18,7 @@ export interface UserAttributes {
   sessionId: string
   subscription: string
   customerId: string
-  profileImage: string
+  profileImage: string | null
 }
 
 export interface UserCreationAttributes extends Optional<UserAttributes,  'id' | 'sessionId'> {}

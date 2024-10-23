@@ -91,13 +91,13 @@ export const coursesController = {
         }
     },
     showQuizz: async (req: Request, res: Response) => {
-        const courseId = Number(req.params.id)
+        const episodeId = Number(req.params.id)
 
         try {
-            const courseWithQuizz = await coursesService.getCourseWithQuizz(courseId)
-            if (!courseWithQuizz) return res.status(404).json({ message: "Função showQuiz error: Curso com quizz não encontrado" })
+            const episodeWithQuizz = await coursesService.getEpisodeWithQuizz(episodeId)
+            if (!episodeWithQuizz) return res.status(404).json({ message: "Função showQuiz error: Curso com quizz não encontrado" })
 
-            return res.json(courseWithQuizz)
+            return res.json(episodeWithQuizz)
         } catch (error) {
             if (error instanceof Error) {
                 return res.status(400).json({ message: error.message })
@@ -105,7 +105,7 @@ export const coursesController = {
         }
     },
     saveQuizResult: async (req: Request, res: Response) => {
-        const { userId, courseId, score } = req.body;
+        const { userId, episodeId, score } = req.body;
 
         try {
             // Verifica se já existe um resultado para esse usuário e quiz
@@ -113,7 +113,7 @@ export const coursesController = {
                 where:
                 {
                     userId,
-                    courseId
+                    episodeId
                 }
 
             });
@@ -124,7 +124,7 @@ export const coursesController = {
             } else {
                 quizResult = await QuizzResult.create({
                     userId,
-                    courseId,
+                    episodeId,
                     score,
                     createdAt: new Date(),
                 });

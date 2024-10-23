@@ -9,8 +9,8 @@ import { episodeResourceFeatures, episodeResourceOptions } from "./episode.js";
 import { userResourceOptions } from "./user.js";
 import { EpisodeFile } from "../../models/EpisodeFiles.js";
 import { episodeFileFeatures, episodeFileResourceOptions } from "./episodeFile.js";
-import { quizzResourceFeature, quizzResourceOptions } from "./quizze.js";
-import { Quizz } from "../../models/Quizze.js";
+import { Question } from "src/models/Question.js";
+import { quizzResourceFeature, quizzResourceOptions } from "./question.js";
 
 export const adminJsResources: ResourceWithOptions[] = [
   {
@@ -34,7 +34,7 @@ export const adminJsResources: ResourceWithOptions[] = [
     options: episodeFileResourceOptions
   },
   {
-    resource: Quizz,
+    resource: Question,
     options: quizzResourceOptions,
     features: quizzResourceFeature
   },

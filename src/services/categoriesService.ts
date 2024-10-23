@@ -27,6 +27,7 @@ export const categoryService = {
                 as: 'Courses',
                 attributes: [
                     'id', 
+                    'serie',
                     'name', 
                     'synopsis', 
                     ['thumbnail_url', 'thumbnailUrl']],

@@ -11,12 +11,12 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      course_id: {
+      episode_id: {
         allowNull: false,
         type: Sequelize.DataTypes.INTEGER,
-        references: { model: 'courses', key: 'id' },
+        references: { model: 'episodes', key: 'id' },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'RESTRICT'
       },
       score: {
         type: Sequelize.DataTypes.INTEGER,

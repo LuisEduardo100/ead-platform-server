@@ -1,12 +1,12 @@
 import { Episode } from '../models/Episode.js'
 import { Course } from '../models/Course.js'
 import { Op } from 'sequelize'
-import { Quizz } from '../models/Quizze.js'
+import { Question } from '../models/Question.js'
 
 export const coursesService = {
     findByIdWithEpisodes: async (id: string) => {
         const courseWithEpisodes = await Course.findByPk(id, {
-            attributes: ['id', 'name', ['featured_name', 'featuredName'], 'synopsis', ['thumbnail_url', 'thumbnailUrl'], ['featured_image', 'featuredImage']],
+            attributes: ['id', 'name', 'serie', ['featured_name', 'featuredName'], 'synopsis', ['thumbnail_url', 'thumbnailUrl'], ['featured_image', 'featuredImage']],
             include: {
                 model: Episode,
                 as: 'Episodes',
@@ -24,11 +24,11 @@ export const coursesService = {
         })
         return courseWithEpisodes
     },
-    getCourseWithQuizz: async (courseId: number)=> {
-        const courseWithQuizz = await Course.findByPk(courseId, {
-            attributes: ['id', 'name'],
+    getEpisodeWithQuizz: async (episodeId: number)=> {
+        const episodeWithQuizz = await Episode.findByPk(episodeId, {
+            attributes: ['id', 'name', ['course_id', 'courseId']],
             include: {
-                model: Quizz,
+                model: Question,
                 as: 'Quizzes',
                 attributes: [
                     'order',
@@ -41,18 +41,16 @@ export const coursesService = {
                 ]
             }
         })
-        return courseWithQuizz
+        return episodeWithQuizz
     }
     ,
     getRandomFeaturedCourses: async () => {
         const featuredCourses = await Course.findAll({
-            attributes: ['id', 'name',['featured_name', 'featuredName'], 'synopsis', ['thumbnail_url', 'thumbnailUrl'], ['featured_image', 'featuredImage']],
+            attributes: ['id', 'name', 'serie', ['featured_name', 'featuredName'], 'synopsis', ['thumbnail_url', 'thumbnailUrl'], ['featured_image', 'featuredImage']],
             where: { featured: true }
         })
 
-        const randomFeaturedCourses = featuredCourses.sort(() => 0.5 - Math.random())
-
-        return randomFeaturedCourses.slice(0, 3)
+        return featuredCourses
     },
     getTopNewest: async () => {
         const courses = await Course.findAll({
@@ -67,6 +65,7 @@ export const coursesService = {
           `SELECT
             courses.id,
             courses.name,
+            courses.serie,
             courses.synopsis,
             courses.thumbnail_url as thumbnailUrl,
             COUNT(users.id) AS likes
@@ -90,7 +89,7 @@ export const coursesService = {
     findByName: async (name: string, page: number, perPage: number) => {
         const offset = (page - 1) * perPage
         const { count, rows } = await Course.findAndCountAll({
-            attributes: ['id', 'name', 'synopsis', ['thumbnail_url', 'thumbnailUrl']],
+            attributes: ['id', 'name', 'serie','synopsis', ['thumbnail_url', 'thumbnailUrl']],
             where: {
                 name: {
                     // Recurso importado do Sequelize para utilizar operadores do SQL
