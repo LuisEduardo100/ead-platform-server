@@ -19,6 +19,7 @@ const userResourceOptions: ResourceOptions = {
     editProperties: [
         'firstName',
         'lastName',
+        'serie',
         'phone',
         'birth',
         'email',
@@ -29,6 +30,7 @@ const userResourceOptions: ResourceOptions = {
     filterProperties: [
         'firstName',
         'lastName',
+        'serie',
         'phone',
         'birth',
         'email',
@@ -38,6 +40,7 @@ const userResourceOptions: ResourceOptions = {
     ],
     listProperties: [
         'id',
+        'serie',
         'firstName',
         'email',
         'role'
@@ -46,6 +49,7 @@ const userResourceOptions: ResourceOptions = {
         'id',
         'firstName',
         'lastName',
+        'serie',
         'phone',
         'birth',
         'email',

@@ -7,6 +7,7 @@ import { EpisodeInstance } from './Episode.js'
 
 export interface UserAttributes {
   id: number
+  serie: string
   firstName: string
   lastName: string
   phone: string
@@ -34,6 +35,10 @@ export const User = database.define<UserInstance, UserAttributes>('users', {
     autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER
+  },
+  serie: {
+    allowNull: false,
+    type: DataTypes.ENUM('6º ano', '7º ano', '8º ano', '9º ano')
   },
   firstName: {
     allowNull: false,

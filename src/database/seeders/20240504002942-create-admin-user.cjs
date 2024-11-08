@@ -12,6 +12,7 @@ module.exports = {
       {
         first_name: 'Admin',
         last_name: 'User',
+        serie: '7º ano',
         phone: '555-5555',
         birth: '1990-01-01',
         email: 'admin@email.com',

@@ -27,6 +27,7 @@ router.get('/courses/featured', express.json(), ensureAuth, coursesController.fe
 router.get('/courses/newest', express.json(), coursesController.newest)
 router.get('/courses/popular', express.json(), ensureAuth, coursesController.popular)
 router.get('/courses/search', express.json(), coursesController.search)
+router.get('/courses/gsearch', express.json(), coursesController.generalSearch)
 router.get('/courses/:id', express.json(), ensureAuth, coursesController.show)
 router.get('/course/quizz/:id', express.json(), ensureAuth, coursesController.showQuizz)
 

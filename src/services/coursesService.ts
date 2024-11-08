@@ -86,8 +86,8 @@ export const coursesService = {
           return null
         }
       },
-    findByName: async (name: string, page: number, perPage: number) => {
-        const offset = (page - 1) * perPage
+      findByNameForGeneralSearch: async (name: string, page: number, perPage: number) => {
+      const offset = (page - 1) * perPage
         const { count, rows } = await Course.findAndCountAll({
             attributes: ['id', 'name', 'serie','synopsis', ['thumbnail_url', 'thumbnailUrl']],
             where: {
@@ -106,6 +106,20 @@ export const coursesService = {
             total: count
         }
     },
+      findByName: async (name: string, page: number, perPage: number, serie: string) => {
+        const whereClause = {
+            serie: serie !== "" ? serie : "6º ano", // Filtra pela série
+            ...(name ? { name: { [Op.iLike]: `%${name}%` } } : {}), // Aplica filtro de nome se name não estiver vazio
+        };
+    
+        const courses = await Course.findAndCountAll({
+            where: whereClause,
+            limit: perPage,
+            offset: (page - 1) * perPage,
+        });
+    
+        return courses;
+    }
     
 
 }

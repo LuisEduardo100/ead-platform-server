@@ -44,16 +44,18 @@ export const userService = {
         values: {
           firstName?: string,
           lastName?: string,
+          serie?: string,
           phone?: string,
           birth?: Date,
           email?: string
         }
       ) => {
-        const { firstName, lastName, phone, birth, email } = values
+        const { firstName, lastName, serie, phone, birth, email } = values
     
         const [affectedRows, updatedUsers] = await User.update({
           firstName,
           lastName,
+          serie,
           phone,
           birth,
           email

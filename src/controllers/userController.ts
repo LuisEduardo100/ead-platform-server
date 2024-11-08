@@ -34,12 +34,13 @@ export const usersController = {
     // PUT /users/current
     update: async (req: AuthenticatedRequest, res: Response) => {
         const { id } = req.user!
-        const { firstName, lastName, phone, email, birth } = req.body
+        const { firstName, lastName, serie, phone, email, birth } = req.body
 
         try {
             const updatedUser = await userService.update(id, {
                 firstName,
                 lastName,
+                serie,
                 phone,
                 email,
                 birth

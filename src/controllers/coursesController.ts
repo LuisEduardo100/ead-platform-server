@@ -37,7 +37,7 @@ export const coursesController = {
                     };
                 })
             );
-            
+
             const watchStatus = watchStatusArray.filter(status => status.isWatching)
             return res.json({ ...course.get(), favorited, liked, watchStatus })
         } catch (err) {
@@ -67,12 +67,28 @@ export const coursesController = {
         }
     },
     search: async (req: Request, res: Response) => {
+        const { name, serie } = req.query;
+        const [page, perPage] = getPaginationParams(req.query);
+
+        try {
+            if (typeof serie !== 'string') throw new Error('Parâmetro série precisa ser uma string');
+            if (typeof name != 'string') throw new Error('Parâmetro nome precisa ser uma string')
+
+            const courses = await coursesService.findByName(name || '', page, perPage, serie);
+
+            return res.json(courses);
+        } catch (err) {
+            if (err instanceof Error) {
+                res.status(400).json({ message: err.message });
+            }
+        }
+    },
+    generalSearch: async (req: Request, res: Response) => {
         const { name } = req.query
         const [page, perPage] = getPaginationParams(req.query)
         try {
-            // Nada que não for uma string não passará do if pois lançará um erro
             if (typeof name != 'string') throw new Error('Parâmetro nome precisa ser uma string')
-            const courses = await coursesService.findByName(name, page, perPage)
+            const courses = await coursesService.findByNameForGeneralSearch(name, page, perPage)
             return res.json(courses)
         } catch (err) {
             if (err instanceof Error) {
