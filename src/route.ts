@@ -29,15 +29,15 @@ router.get('/courses/popular', express.json(), ensureAuth, coursesController.pop
 router.get('/courses/search', express.json(), coursesController.search)
 router.get('/courses/gsearch', express.json(), coursesController.generalSearch)
 router.get('/courses/:id', express.json(), ensureAuth, coursesController.show)
-router.get('/course/quizz/:id', express.json(), ensureAuth, coursesController.showQuizz)
-
-router.get('/courses/:id/quizzResult', express.json(), ensureAuth, quizResultController.showQuizResult)
-router.post('/courses/:id/quizzResult', express.json(), ensureAuth, quizResultController.setQuizResult)
 
 router.get('/episodes/stream', express.json(), ensureAuthViaQuery, episodesController.stream)
 router.get('/episodes/:id/watchTime', express.json(), ensureAuth, episodesController.getWatchTime)
 router.post('/episodes/:id/watchTime', express.json(), ensureAuth, episodesController.setWatchTime)
 router.get('/episodes/:episodeId', express.json(), ensureAuth, episodesController.show)
+router.get('/episodes/:id/questoes', express.json(), ensureAuth, episodesController.showQuizz)
+router.get('/episodes/:id/quizzResult', express.json(), ensureAuth, quizResultController.showQuizResult)
+router.post('/episodes/:id/quizzResult', express.json(), ensureAuth, quizResultController.setQuizResult)
+
 
 router.get('/favorites', express.json(), ensureAuth, favoritesController.index)
 router.post('/favorites', express.json(), ensureAuth, favoritesController.save)

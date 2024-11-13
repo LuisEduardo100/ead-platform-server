@@ -24,26 +24,6 @@ export const coursesService = {
         })
         return courseWithEpisodes
     },
-    getEpisodeWithQuizz: async (episodeId: number)=> {
-        const episodeWithQuizz = await Episode.findByPk(episodeId, {
-            attributes: ['id', 'name', ['course_id', 'courseId']],
-            include: {
-                model: Question,
-                as: 'Quizzes',
-                attributes: [
-                    'order',
-                    'question',
-                    'answers',
-                    ['file_url', 'fileUrl'],
-                    ['correct_answer', 'correctAnswer'],
-                    'serie',
-                    'dificuldade',
-                ]
-            }
-        })
-        return episodeWithQuizz
-    }
-    ,
     getRandomFeaturedCourses: async () => {
         const featuredCourses = await Course.findAll({
             attributes: ['id', 'name', 'serie', ['featured_name', 'featuredName'], 'synopsis', ['thumbnail_url', 'thumbnailUrl'], ['featured_image', 'featuredImage']],

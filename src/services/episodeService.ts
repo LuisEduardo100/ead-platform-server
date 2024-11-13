@@ -6,6 +6,7 @@ import { WatchTime } from '../models/WatchTime.js'
 import { fileURLToPath } from 'url'
 import { EpisodeFile } from '../models/EpisodeFiles.js'
 import { Episode } from '../models/Episode.js'
+import { Question } from 'src/models/Question.js'
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const episodeService = {
@@ -41,6 +42,25 @@ export const episodeService = {
       fs.createReadStream(filePath).pipe(res)
     }
   },
+  getEpisodeWithQuizz: async (episodeId: number)=> {
+    const episodeWithQuizz = await Episode.findByPk(episodeId, {
+        attributes: ['id', 'name', ['course_id', 'courseId']],
+        include: {
+            model: Question,
+            as: 'Quizzes',
+            attributes: [
+                'order',
+                'question',
+                'answers',
+                ['file_url', 'fileUrl'],
+                ['correct_answer', 'correctAnswer'],
+                'serie',
+                'dificuldade',
+            ]
+        }
+    })
+    return episodeWithQuizz
+},
   findEpisodeWithFiles: async(id: number | string)=>{
     const episodeWithFiles = await Episode.findByPk(id, {
       attributes: ['id', 'name', 'secondsLong', 'courseId', 'order', ['video_url', 'videoUrl']],
