@@ -118,3 +118,4 @@ export function checkPassword(password: string, userPassword: string, callbackfn
     }
   })
 }
+

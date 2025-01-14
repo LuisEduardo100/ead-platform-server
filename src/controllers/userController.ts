@@ -4,8 +4,11 @@ import { Response } from 'express'
 import { checkPassword, User } from "../models/User.js"
 import path from "path";
 import upload from "../middlewares/upload.js";
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt'
 
 export const usersController = {
+
     // GET /users/current/watching
     watching: async (req: AuthenticatedRequest, res: Response) => {
         const { id } = req.user!
@@ -52,6 +55,42 @@ export const usersController = {
                 return res.status(400).json({ message: err.message })
             }
         }
+    },
+    recoverPassword: async (req: AuthenticatedRequest, res: Response) => {
+        const token = req.headers.authorization?.split(" ")[1]; // Extrai o token do cabeçalho
+        const { newPassword } = req.body
+
+        if (!token) {
+            return res.status(400).json({ error: 'Token é obrigatório' })
+        }
+
+        try {
+            const secret = process.env.JWT_KEY as string
+            const decoded = jwt.verify(token as string, secret) as { email: string };
+            const email = decoded.email;
+
+            const user = await userService.findByEmail(email)
+            if (!user) {
+                return res.send(404).json({ error: 'Usuário não encontrado!' })
+            }
+
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+            if (!passwordRegex.test(newPassword)) {
+                return res.status(400).json({
+                    error: "A senha deve conter pelo menos 8 caracteres, incluindo letras e números.",
+                });
+            }
+
+            // const hashedPassword = await bcrypt.hash(newPassword, 10);
+            await userService.updatePassword(user.id, newPassword);
+
+            return res.status(204).json();
+        } catch (error) {
+            console.log(error)
+            return res.status(400).json({ error: "Token inválido ou expirado" })
+        }
+
+
     },
     // PUT /users/current/password
     updatePassword: async (req: AuthenticatedRequest, res: Response) => {

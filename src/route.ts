@@ -9,16 +9,19 @@ import { favoritesController } from './controllers/favoriteController.js'
 import { usersController } from './controllers/userController.js'
 import { quizResultController } from './controllers/quizResultController.js'
 import { stripeController } from './controllers/stripeController.js'
+import { emailController } from './controllers/emailController.js'
 
 
 const router = express.Router()
 
+router.post('/emailSend', express.json(), emailController.sendEmail)
 router.get('/subscribe', ensureAuth, stripeController.stripeSubscribe)
 router.get('/customers/:customerId', stripeController.stripeCustomers)
 router.post('/webhook', express.raw({ type: 'application/json' }), stripeController.stripeWebhook)
 
 router.post('/auth/register', express.json(), authController.register)
 router.post('/auth/login', express.json(), authController.login)
+router.post('/users/forgotPassword', express.json(), authController.forgotPassword)
 
 router.get('/categories', express.json(), categoriesController.index)
 router.get('/categories/:id', express.json(), categoriesController.show)
@@ -47,9 +50,10 @@ router.post('/likes', express.json(), ensureAuth, likesController.save)
 router.delete('/likes/:id', express.json(), ensureAuth, likesController.delete)
 
 router.get('/users/current', express.json(), ensureAuth, usersController.show)
+router.get('/users/changePasswordUser', express.json(), usersController.show)
 router.get('/users/current/watching', express.json(), ensureAuth, usersController.watching)
 router.put('/users/current', express.json(), ensureAuth, usersController.update)
 router.put('/users/current/password', express.json(), ensureAuth, usersController.updatePassword)
 router.post('/users/current/profileImage', express.json(), ensureAuth, usersController.uploadProfilePicture);
-
+router.post('/users/current/recoverPassword', express.json(), usersController.recoverPassword)
 export { router }
