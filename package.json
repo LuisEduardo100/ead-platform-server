@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "tsx watch ./src/server.ts",
     "build": "tsc",
-    "start": "node ./dist/server.js"
+    "start": "node ./dist/server.js",
+    "db:reset": "npx sequelize db:drop && sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all"
   },
   "repository": {
     "type": "git",

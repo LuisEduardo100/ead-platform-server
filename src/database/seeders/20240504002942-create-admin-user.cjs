@@ -20,7 +20,8 @@ module.exports = {
         role: 'admin',
         created_at: new Date(),
         updated_at: new Date(),
-        has_full_access: true
+        has_full_access: true,
+        email_confirmed: true
       },
     ])
   },

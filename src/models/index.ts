@@ -7,8 +7,8 @@ import { User } from './User.js'
 import { WatchTime } from './WatchTime.js'
 import { EpisodeFile } from './EpisodeFiles.js'
 import { Question } from './Question.js'
-Category.hasMany(Course)
 
+Category.hasMany(Course)
 Course.belongsTo(Category)
 Course.hasMany(Episode)
 Course.belongsToMany(User, { through: Favorite })

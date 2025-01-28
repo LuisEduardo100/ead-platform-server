@@ -3,7 +3,7 @@ import { DataTypes, Model, Optional } from 'sequelize'
 import { Category } from './Category.js'
 
 
-export interface Course {
+export interface CourseType {
     id: number
     name: string
     featuredName: string
@@ -13,17 +13,16 @@ export interface Course {
     featuredImage: string
     featured: boolean
     categoryId: number
-
 }
 
-export interface CourseCreationAttributes extends Optional<Course, 'id' | 'thumbnailUrl' | 'featured' > {}
+export interface CourseCreationAttributes extends Optional<CourseType, 'id' | 'thumbnailUrl' | 'featured' > {}
 
-export interface CourseInstance extends Model<Course, CourseCreationAttributes>, Course {
+export interface CourseInstance extends Model<CourseType, CourseCreationAttributes>, CourseType {
     Episodes: any;
     watchStatus: any;
 }
 
-export const Course = database.define<CourseInstance, Course>('Course', {
+export const Course = database.define<CourseInstance, CourseType>('Course', {
     id: {
       allowNull: false,
       autoIncrement: true,

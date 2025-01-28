@@ -2,6 +2,7 @@ import { database } from '../database/index.js'
 import { DataTypes,  Model, Optional } from 'sequelize'
 import bcrypt from 'bcrypt'
 import { EpisodeInstance } from './Episode.js'
+import { randomBytes } from 'crypto'
 
 // type CheckPasswordCallback = (err: Error | undefined, isSame: boolean) => void
 
@@ -15,6 +16,8 @@ export interface UserAttributes {
   email: string
   password: string
   role: 'admin' | 'user'
+  emailConfirmed: boolean
+  confirmationToken: string | null
   hasFullAccess: boolean
   sessionId: string
   subscription: string
@@ -67,6 +70,13 @@ export const User = database.define<UserInstance, UserAttributes>('users', {
       isEmail: true
     }
   },
+  confirmationToken: {
+    allowNull: true,
+    type: DataTypes.STRING
+  },
+  emailConfirmed: {
+    type: DataTypes.BOOLEAN,
+  },
   password: {
     allowNull: false,
     type: DataTypes.INTEGER
@@ -90,6 +100,10 @@ export const User = database.define<UserInstance, UserAttributes>('users', {
 }, {
   hooks: {
     beforeSave: async (user) => {
+      if (user.isNewRecord) {
+        user.confirmationToken = randomBytes(32).toString('hex')
+        user.emailConfirmed = false
+      }
       if (user.isNewRecord || user.changed('password')) {
         user.password = await bcrypt.hash(user.password.toString(), 10);
       }

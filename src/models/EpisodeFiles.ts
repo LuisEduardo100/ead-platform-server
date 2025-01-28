@@ -4,6 +4,7 @@ import { Episode } from './Episode.js'
 
 
 export interface EpisodeFileAttributes {
+  id: number
   name: string
   episodeId: number
   fileUrl: string
@@ -18,6 +19,12 @@ export interface EpisodeFileInstance extends Model<EpisodeCreationAttributes>, E
 
 
 export const EpisodeFile = database.define<EpisodeFileInstance, EpisodeFileAttributes>('Files', {
+  id: {
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+    type: DataTypes.INTEGER
+  }, 
   name: {
     type: DataTypes.STRING
   },

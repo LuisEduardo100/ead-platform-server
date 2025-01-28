@@ -54,6 +54,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+      email_confirmed: {
+        type: Sequelize.DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      confirmation_token: {
+        allowNull: true,
+        type: Sequelize.DataTypes.STRING,
+      },
       has_full_access: {
         type: Sequelize.DataTypes.BOOLEAN,
         defaultValue: false

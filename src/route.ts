@@ -10,6 +10,7 @@ import { usersController } from './controllers/userController.js'
 import { quizResultController } from './controllers/quizResultController.js'
 import { stripeController } from './controllers/stripeController.js'
 import { emailController } from './controllers/emailController.js'
+import { filesController } from './controllers/filesController.js'
 
 
 const router = express.Router()
@@ -18,10 +19,12 @@ router.post('/emailSend', express.json(), emailController.sendEmail)
 router.get('/subscribe', ensureAuth, stripeController.stripeSubscribe)
 router.get('/customers/:customerId', stripeController.stripeCustomers)
 router.post('/webhook', express.raw({ type: 'application/json' }), stripeController.stripeWebhook)
+router.get('/apostilas', express.json(), ensureAuth, filesController.allFiles)
 
 router.post('/auth/register', express.json(), authController.register)
 router.post('/auth/login', express.json(), authController.login)
 router.post('/users/forgotPassword', express.json(), authController.forgotPassword)
+router.post('/confirmEmail', express.json(), authController.confirmEmail)
 
 router.get('/categories', express.json(), categoriesController.index)
 router.get('/categories/:id', express.json(), categoriesController.show)

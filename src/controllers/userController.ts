@@ -8,7 +8,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt'
 
 export const usersController = {
-
     // GET /users/current/watching
     watching: async (req: AuthenticatedRequest, res: Response) => {
         const { id } = req.user!

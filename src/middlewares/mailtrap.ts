@@ -6,7 +6,7 @@ interface EmailOptions {
   html: string,                                                
 }
 
-const createTransporter = () => {
+export const createTransporter = () => {
   if (process.env.NODE_ENV === 'production') {
     return nodemailer.createTransport({
       host: process.env.SMTP_HOST,

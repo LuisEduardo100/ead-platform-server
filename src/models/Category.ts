@@ -9,7 +9,9 @@ export interface Category {
 
 export interface CategoryCreationAttributes extends Optional<Category, 'id'> {}
 
-export interface CategoryInstance extends Model<Category, CategoryCreationAttributes>, Category {}
+export interface CategoryInstance extends Model<Category, CategoryCreationAttributes>, Category {
+    Courses: any;
+}
 
 export const Category = database.define<CategoryInstance, Category>('Category', {
   id: {
