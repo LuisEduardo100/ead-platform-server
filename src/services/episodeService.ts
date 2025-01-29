@@ -6,7 +6,7 @@ import { WatchTime } from '../models/WatchTime.js'
 import { fileURLToPath } from 'url'
 import { EpisodeFile } from '../models/EpisodeFiles.js'
 import { Episode } from '../models/Episode.js'
-import { Question } from 'src/models/Question.js'
+import { Question } from '../models/Question.js'
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const episodeService = {

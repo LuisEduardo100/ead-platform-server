@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { sendEmail } from "src/middlewares/mailtrap.js";
+import { sendEmail } from "../middlewares/mailtrap.js";
 
 
 export const emailController = {

@@ -1,7 +1,6 @@
 import { Episode } from '../models/Episode.js'
 import { Course } from '../models/Course.js'
 import { Op } from 'sequelize'
-import { Question } from '../models/Question.js'
 
 export const coursesService = {
     findByIdWithEpisodes: async (id: string) => {

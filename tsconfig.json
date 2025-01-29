@@ -9,10 +9,21 @@
     "jsx": "react",
     "skipLibCheck": true,
     "moduleResolution": "NodeNext",
-    "typeRoots": ["node_modules/@types", "./vendor-types", "@adminjs/design-system/vendor-types"],
+    "typeRoots": [
+      "node_modules/@types",
+      "./vendor-types",
+      "@adminjs/design-system/vendor-types"
+    ],
     "paths": {
-      "react": ["node_modules/@types/react"],
-      "mocha": ["node_modules/@types/mocha"]
+      "react": [
+        "node_modules/@types/react"
+      ],
+      "mocha": [
+        "node_modules/@types/mocha"
+      ],
+      "src/*": [
+        "./src/*"
+      ]
     },
     "baseUrl": "./",
     "rootDir": "./src",

@@ -5,7 +5,6 @@ import { checkPassword, User } from "../models/User.js"
 import path from "path";
 import upload from "../middlewares/upload.js";
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt'
 
 export const usersController = {
     // GET /users/current/watching

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { Category } from "src/models/Category.js";
-import { Course, CourseInstance, CourseType } from "src/models/Course.js";
-import { Episode, EpisodeInstance} from "src/models/Episode.js";
-import { EpisodeFile, EpisodeFileInstance } from "src/models/EpisodeFiles.js";
+import { Category } from "../models/Category.js";
+import { Course } from "../models/Course.js";
+import { Episode } from "../models/Episode.js";
+import { EpisodeFile } from "../models/EpisodeFiles.js";
 
 
 export const filesController = {

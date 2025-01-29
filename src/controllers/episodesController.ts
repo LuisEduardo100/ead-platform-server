@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { AuthenticatedRequest } from '../middlewares/auth.js'
 import { episodeService } from '../services/episodeService.js'
-import { QuizzResult } from 'src/models/QuizzResults.js'
 
 export const episodesController = {
   // GET /episodes/stream

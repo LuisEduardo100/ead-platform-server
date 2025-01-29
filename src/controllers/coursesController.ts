@@ -5,7 +5,6 @@ import { coursesService } from '../services/coursesService.js'
 import { favoriteService } from '../services/favoriteService.js'
 import { likeService } from '../services/likesService.js'
 import { WatchTime } from '../models/WatchTime.js'
-import { QuizzResult } from '../models/QuizzResults.js'
 
 export const coursesController = {
     show: async (req: AuthenticatedRequest, res: Response) => {

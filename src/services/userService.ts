@@ -1,6 +1,6 @@
 import { EpisodeInstance } from "../models/Episode.js"
 import { User, UserCreationAttributes } from "../models/User.js"
-import bcrypt from 'bcrypt'
+
 function filterLastEpisodeFromEachCourse(episodes: EpisodeInstance[]) {
   const coursesOnList: number[] = []
 

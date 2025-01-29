@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { userService } from '../services/userService.js'
 import { jwtService } from '../services/jwtService.js'
 import { checkPassword, User } from '../models/User.js'
-import { sendEmail } from 'src/middlewares/mailtrap.js'
+import { sendEmail } from '../middlewares/mailtrap.js'
 
 export const authController = {
     confirmEmail: async (req: Request, res: Response) => {
