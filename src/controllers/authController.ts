@@ -3,7 +3,7 @@ import { userService } from '../services/userService.js'
 import { jwtService } from '../services/jwtService.js'
 import { checkPassword, User } from '../models/User.js'
 import { sendEmail } from '../middlewares/mailtrap.js'
-import { verifyRecaptcha } from 'src/services/recaptchaService.js'
+import { verifyRecaptcha } from '../services/recaptchaService.js'
 
 export const authController = {
     confirmEmail: async (req: Request, res: Response) => {
