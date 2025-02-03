@@ -3,6 +3,7 @@ import { userService } from '../services/userService.js'
 import { jwtService } from '../services/jwtService.js'
 import { checkPassword, User } from '../models/User.js'
 import { sendEmail } from '../middlewares/mailtrap.js'
+import { verifyRecaptcha } from 'src/services/recaptchaService.js'
 
 export const authController = {
     confirmEmail: async (req: Request, res: Response) => {
@@ -13,36 +14,41 @@ export const authController = {
         }
 
         try {
-            console.log("TOKEN RECEBIDO: ", token)
-            // Verifica o usuário pelo token
             const user = await User.findOne({ where: { confirmationToken: token } });
 
             if (!user) {
                 console.error('Usuário não encontrado para o token:', token);
                 return res.status(400).json({ error: 'Token inválido ou expirado.' });
             }
-    
+
             if (user.emailConfirmed) {
                 console.error('Email já confirmado para o token:', token);
                 return res.status(400).json({ error: 'Email já confirmado anteriormente.' });
             }
-    
+
             user.emailConfirmed = true;
             user.confirmationToken = '';
             await user.save();
-    
-            console.log('Email confirmado com sucesso para o usuário:', user.email);
-    
+
             return res.status(200).json({ message: 'Email confirmado com sucesso.' });
         } catch (error) {
-            console.error('Erro ao confirmar email:', error);
             return res.status(500).json({ error: 'Erro ao confirmar email. Por favor, tente novamente mais tarde.' });
         }
 
     },
     register: async (req: Request, res: Response) => {
-        const { firstName, lastName, serie, email, password, birth, phone } = req.body
+        const { firstName, lastName, serie, email, password, birth, phone, token } = req.body;
 
+        console.log(token)
+        if (!token) {
+            return res.status(400).json({ message: 'Token do reCAPTCHA ausente.' });
+        }
+
+        const isHuman = await verifyRecaptcha(token);
+        console.log(isHuman)
+        if (!isHuman) {
+            return res.status(400).json({ message: 'Falha na verificação do reCAPTCHA. Ação suspeita detectada.' });
+        }
         try {
             const userAlreadyExisted = await userService.findByEmail(email)
             if (userAlreadyExisted) { throw new Error('Este email já está cadastrado') }
@@ -64,8 +70,6 @@ export const authController = {
                 emailConfirmed: false
             })
 
-            console.log(`O token do usuário ${user.firstName} é esse: ${user.confirmationToken}`)
-            // Link de confirmação
             const confirmationUrl = `${process.env.FRONTEND_URL}/confirmEmail?token=${user.confirmationToken}`;
 
             // Enviar email

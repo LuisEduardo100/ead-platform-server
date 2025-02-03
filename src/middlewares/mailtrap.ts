@@ -9,12 +9,12 @@ interface EmailOptions {
 export const createTransporter = () => {
   if (process.env.NODE_ENV === 'production') {
     return nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
+      host: String(process.env.SMTP_HOST),
       port: Number(process.env.SMTP_PORT),
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD
-      }
+        user: String(process.env.SMTP_USER),
+        pass: String(process.env.SMTP_PASSWORD)
+      },
     })
   }
 
@@ -24,7 +24,7 @@ export const createTransporter = () => {
     auth: {
       user: 'ac2a83ce3ed4b5',
       pass: '3e2a3c3854c336'
-    }
+    },
   })
 }
 

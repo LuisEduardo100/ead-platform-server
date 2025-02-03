@@ -25,7 +25,8 @@ const userResourceOptions: ResourceOptions = {
         'email',
         'password',
         'role',
-        'hasFullAccess'
+        'hasFullAccess',
+        'emailConfirmed'
     ],
     filterProperties: [
         'firstName',
@@ -35,12 +36,14 @@ const userResourceOptions: ResourceOptions = {
         'birth',
         'email',
         'role',
+        'emailConfirmed',
         'createdAt',
         'updatedAt'
     ],
     listProperties: [
         'id',
         'serie',
+        'emailConfirmed',
         'firstName',
         'email',
         'role'
@@ -49,6 +52,7 @@ const userResourceOptions: ResourceOptions = {
         'id',
         'firstName',
         'lastName',
+        'emailConfirmed',
         'serie',
         'phone',
         'birth',
