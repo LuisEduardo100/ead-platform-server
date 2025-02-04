@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv';
-import { EMAIL_FROM, SMTP_HOST, SMTP_PASSWORD, SMTP_PORT, SMTP_USERNAME } from 'src/config/environment.js';
+import { EMAIL_FROM, SMTP_HOST, SMTP_PASSWORD, SMTP_PORT, SMTP_USERNAME } from '../config/environment.js';
 dotenv.config()
 
 interface EmailOptions {
