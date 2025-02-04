@@ -19,7 +19,7 @@ router.post('/emailSend', express.json(), emailController.sendEmail)
 router.get('/subscribe', ensureAuth, stripeController.stripeSubscribe)
 router.get('/customers/:customerId', stripeController.stripeCustomers)
 router.post('/webhook', express.raw({ type: 'application/json' }), stripeController.stripeWebhook)
-router.get('/apostilas', express.json(), ensureAuth, filesController.allFiles)
+router.get('/apostilas', express.json(), filesController.allFiles)
 
 router.post('/auth/register', express.json(), authController.register)
 router.post('/auth/login', express.json(), authController.login)

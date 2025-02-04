@@ -1,51 +1,40 @@
 import nodemailer from 'nodemailer'
+import dotenv from 'dotenv';
+import { EMAIL_FROM, SMTP_HOST, SMTP_PASSWORD, SMTP_PORT, SMTP_USERNAME } from 'src/config/environment.js';
+dotenv.config()
 
 interface EmailOptions {
   to: string
   subject: string
-  html: string,                                                
+  html: string,
 }
 
 export const createTransporter = () => {
-  if (process.env.NODE_ENV === 'production') {
-    return nodemailer.createTransport({
-      host: String(process.env.SMTP_HOST),
-      port: Number(process.env.SMTP_PORT),
-      auth: {
-        user: String(process.env.SMTP_USER),
-        pass: String(process.env.SMTP_PASSWORD)
-      },
-    })
-  }
-
   return nodemailer.createTransport({
-    host: 'sandbox.smtp.mailtrap.io',
-    port: 2525,
+    host: SMTP_HOST,
+    port: SMTP_PORT,
+    secure: false,
     auth: {
-      user: 'ac2a83ce3ed4b5',
-      pass: '3e2a3c3854c336'
+      user: SMTP_USERNAME,
+      pass: SMTP_PASSWORD 
     },
+    tls: {
+      secureProtocol: 'TLSv1_2_method'
+    }
   })
 }
 
 const transporter = createTransporter()
 
-export const sendEmail = async ({to, subject, html}: EmailOptions) => {
+export const sendEmail = async ({ to, subject, html }: EmailOptions) => {
   try {
-    const info = await transporter.sendMail({
-      from: process.env.EMAIL_FROM,
-      to, 
+    await transporter.sendMail({
+      from: EMAIL_FROM,
+      to,
       subject,
       html
     })
-
-    console.log(`EMAIL ENVIADO: ${info.messageId}`) // id do sender
-    console.log(`EMAIL ENVIADO: \n ${info.envelope.from} (FROM) \n ${info.envelope.to} (TO)`) // objeto
-    console.log(`EMAIL ENVIADO: ${info.response}`) // código de sucesso (200 queued)
-    console.log(`EMAIL ENVIADO: ${info.accepted}`) // email para qual foi enviado
-    
   } catch (error) {
-    console.log(`Erro ao enviar o email: ${error}`)
     throw new Error(`Falha ao enviar o email`)
   }
 }
