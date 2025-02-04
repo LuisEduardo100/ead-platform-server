@@ -17,12 +17,10 @@ export const authController = {
             const user = await User.findOne({ where: { confirmationToken: token } });
 
             if (!user) {
-                console.error('Usuário não encontrado para o token:', token);
                 return res.status(400).json({ error: 'Token inválido ou expirado.' });
             }
 
             if (user.emailConfirmed) {
-                console.error('Email já confirmado para o token:', token);
                 return res.status(400).json({ error: 'Email já confirmado anteriormente.' });
             }
 
@@ -39,13 +37,11 @@ export const authController = {
     register: async (req: Request, res: Response) => {
         const { firstName, lastName, serie, email, password, birth, phone, token } = req.body;
 
-        console.log(token)
         if (!token) {
             return res.status(400).json({ message: 'Token do reCAPTCHA ausente.' });
         }
 
         const isHuman = await verifyRecaptcha(token);
-        console.log(isHuman)
         if (!isHuman) {
             return res.status(400).json({ message: 'Falha na verificação do reCAPTCHA. Ação suspeita detectada.' });
         }
