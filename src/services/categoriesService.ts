@@ -1,5 +1,5 @@
 import { Category } from "../models/Category.js"
-import { Course } from "../models/index.js"
+import { Course, Episode, EpisodeFile } from "../models/index.js"
 
 export const categoryService = {
     findAllPaginated: async (page: number, perPage: number) => {
@@ -26,11 +26,18 @@ export const categoryService = {
                 model: Course,
                 as: 'Courses',
                 attributes: [
-                    'id', 
+                    'id',
                     'serie',
-                    'name', 
-                    'synopsis', 
+                    'name',
+                    'synopsis',
                     ['thumbnail_url', 'thumbnailUrl']],
+                include: [
+                    {
+                        model: Episode,
+                        as: 'Episodes',
+                        attributes: ['id', 'name'],
+                    },
+                ],
             }
         })
 

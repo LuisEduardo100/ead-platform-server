@@ -45,7 +45,7 @@ export const authController = {
         if (!isHuman) {
             return res.status(400).json({ message: 'Falha na verificação do reCAPTCHA. Ação suspeita detectada.' });
         }
-        try {
+        try { 
             const userAlreadyExisted = await userService.findByEmail(email)
             if (userAlreadyExisted) { throw new Error('Este email já está cadastrado') }
 
