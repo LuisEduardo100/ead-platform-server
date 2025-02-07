@@ -17,9 +17,10 @@ const router = express.Router()
 
 router.post('/emailSend', express.json(), emailController.sendEmail)
 router.get('/subscribe', ensureAuth, stripeController.stripeSubscribe)
-router.get('/customers/:customerId', stripeController.stripeCustomers)
 router.post('/webhook', express.raw({ type: 'application/json' }), stripeController.stripeWebhook)
+router.get('/customers/:customerId', express.json(), ensureAuth, stripeController.stripeCustomers)
 router.get('/apostilas', express.json(), filesController.allFiles)
+router.get('/verify-session/:sessionId', express.json(), stripeController.verifyStripe)
 
 router.post('/auth/register', express.json(), authController.register)
 router.post('/auth/login', express.json(), authController.login)
@@ -43,7 +44,6 @@ router.get('/episodes/:episodeId', express.json(), ensureAuth, episodesControlle
 router.get('/episodes/:id/questoes', express.json(), ensureAuth, episodesController.showQuizz)
 router.get('/episodes/:id/quizzResult', express.json(), ensureAuth, quizResultController.showQuizResult)
 router.post('/episodes/:id/quizzResult', express.json(), ensureAuth, quizResultController.setQuizResult)
-
 
 router.get('/favorites', express.json(), ensureAuth, favoritesController.index)
 router.post('/favorites', express.json(), ensureAuth, favoritesController.save)

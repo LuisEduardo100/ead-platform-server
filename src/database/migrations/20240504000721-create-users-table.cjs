@@ -54,6 +54,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+      latest_invoice_id: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: true,
+      },
       email_confirmed: {
         type: Sequelize.DataTypes.BOOLEAN,
         defaultValue: false
@@ -66,14 +70,37 @@ module.exports = {
         type: Sequelize.DataTypes.BOOLEAN,
         defaultValue: false
       },
-      subscription: {
+      subscription_id: { 
         type: Sequelize.DataTypes.STRING,
+        allowNull: true
       },
-      customer_id: {
+      stripe_customer_id: {
         type: Sequelize.DataTypes.STRING,
+        allowNull: true
       },
       session_id: {
         type: Sequelize.DataTypes.STRING,
+        allowNull: true
+      },
+      subscription_status: { 
+        type: Sequelize.DataTypes.ENUM('active', 'trialing', 'past_due', 'canceled', 'unpaid', 'inactive'),
+        defaultValue: 'inactive'
+      },
+      subscription_start_date: { 
+        type: Sequelize.DATE,
+        allowNull: true
+      },
+      subscription_renewal_date: { 
+        type: Sequelize.DATE,
+        allowNull: true
+      },
+      subscription_canceled_at: {
+        type: Sequelize.DATE,
+        allowNull: true
+      },
+      payment_method: { 
+        type: Sequelize.DataTypes.STRING,
+        allowNull: true
       }
     })
   },
