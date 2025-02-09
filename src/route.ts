@@ -60,4 +60,5 @@ router.put('/users/current', express.json(), ensureAuth, usersController.update)
 router.put('/users/current/password', express.json(), ensureAuth, usersController.updatePassword)
 router.post('/users/current/profileImage', express.json(), ensureAuth, usersController.uploadProfilePicture);
 router.post('/users/current/recoverPassword', express.json(), usersController.recoverPassword)
+
 export { router }
