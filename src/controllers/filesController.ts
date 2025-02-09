@@ -54,7 +54,6 @@ export const filesController = {
 
             res.json(apostilas);
         } catch (error) {
-            console.error(error);
             res.status(500).json({ message: 'Erro ao obter as apostilas' });
         }
 

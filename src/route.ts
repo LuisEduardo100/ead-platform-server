@@ -3,7 +3,7 @@ import { categoriesController } from './controllers/categoriesController.js'
 import { coursesController } from './controllers/coursesController.js'
 import { episodesController } from './controllers/episodesController.js'
 import { authController } from './controllers/authController.js'
-import { ensureAuth, ensureAuthViaQuery } from './middlewares/auth.js'
+import { ensureAuth, ensureAuthViaQuery, requirePremium } from './middlewares/auth.js'
 import { likesController } from './controllers/likesController.js'
 import { favoritesController } from './controllers/favoriteController.js'
 import { usersController } from './controllers/userController.js'
@@ -41,6 +41,7 @@ router.get('/episodes/stream', express.json(), ensureAuthViaQuery, episodesContr
 router.get('/episodes/:id/watchTime', express.json(), ensureAuth, episodesController.getWatchTime)
 router.post('/episodes/:id/watchTime', express.json(), ensureAuth, episodesController.setWatchTime)
 router.get('/episodes/:episodeId', express.json(), ensureAuth, episodesController.show)
+
 router.get('/episodes/:id/questoes', express.json(), ensureAuth, episodesController.showQuizz)
 router.get('/episodes/:id/quizzResult', express.json(), ensureAuth, quizResultController.showQuizResult)
 router.post('/episodes/:id/quizzResult', express.json(), ensureAuth, quizResultController.setQuizResult)

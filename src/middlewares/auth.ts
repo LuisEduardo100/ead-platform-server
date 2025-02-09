@@ -9,6 +9,15 @@ export interface AuthenticatedRequest extends Request {
     hasFullAccess?: boolean;
 }
 
+export const requirePremium = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    if (req.user && req.user.hasFullAccess) {
+        return next();
+    }
+    return res.status(403).json({
+        message: 'Acesso negado: recurso disponível apenas para usuários premium.'
+    });
+};
+
 export async function ensureAuth(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const authorizationHeader = req.headers.authorization;
 
