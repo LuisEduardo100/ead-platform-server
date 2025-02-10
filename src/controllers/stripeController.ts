@@ -29,7 +29,6 @@ export const stripeController = {
             return res.json({ url: session.url });
 
         } catch (error) {
-            console.error('Subscription error:', error);
             return res.status(500).json({ error: 'Erro ao processar assinatura' });
         }
     },
@@ -72,7 +71,6 @@ export const stripeController = {
             res.json({ success: true });
 
         } catch (error) {
-            console.error('Cancellation error:', error);
             res.status(500).json({ error: 'Erro ao processar cancelamento' });
         }
     },
@@ -91,7 +89,6 @@ export const stripeController = {
 
             res.json({ url: portalSession.url });
         } catch (error) {
-            console.error('Erro no Stripe:', error); // Log detalhado
             res.status(500).json({
                 error: 'Erro ao gerar link do portal',
                 details: error instanceof Error ? error.message : 'Erro desconhecido' // 👈 Mensagem específica
@@ -242,7 +239,7 @@ export const stripeController = {
 
                 case 'charge.refunded': {
                     const charge = event.data.object;
-                    // Adicione esta verificação para evitar conflitos
+                    
                     if (charge.refunded) {
                         await handleRefund(event);
                     }
@@ -251,6 +248,18 @@ export const stripeController = {
 
                 case 'customer.subscription.updated': {
                     const subscription = event.data.object as Stripe.Subscription;
+                    const cancellationDate = new Date();
+                    const subscriptionStart = new Date(subscription.current_period_start * 1000);
+                    const daysSinceStart = Math.floor((cancellationDate.getTime() - subscriptionStart.getTime()) / (1000 * 60 * 60 * 24));
+                
+                    if (daysSinceStart <= 7 && subscription.status === 'canceled') {
+                        const latestInvoice = await stripe.invoices.retrieve(subscription.latest_invoice as string);
+                        await stripe.refunds.create({
+                            payment_intent: latestInvoice.payment_intent as string,
+                            reason: 'requested_by_customer'
+                        });
+                    }
+
                     await handleSubscriptionUpdate(subscription);
                     break;
                 }
@@ -258,7 +267,6 @@ export const stripeController = {
 
             res.send();
         } catch (error) {
-            console.error('Webhook processing error:', error);
             res.status(500).send('Internal Server Error');
         }
     },
@@ -310,7 +318,6 @@ async function handlePaymentFailed(event: any) {
     if (user) {
         await user.update({ hasFullAccess: false });
 
-        // customer invoice email payment failed
         await sendEmail({
             to: invoice.customer_email,
             subject: 'Pagamento Não Autorizado ❌',
@@ -354,10 +361,9 @@ async function handleRefund(event: any) {
     if (user) {
         await user.update({
             hasFullAccess: false,
-            subscriptionStatus: mapStripeStatus('refunded') // Novo status específico
+            subscriptionStatus: mapStripeStatus('refunded') 
         });
 
-        // send email pagamento concluido
         await sendEmail({
             to: user.email,
             subject: 'Reembolso Concluído 💸',
@@ -412,16 +418,14 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
 
     if (!user) return;
 
-    // Atualiza status com base no estado da subscription
     const isCanceled = subscription.status === 'canceled' || subscription.status === 'incomplete_expired';
-
 
     await user.update({
         subscriptionStatus: mapStripeStatus(subscription.status),
         hasFullAccess: !isCanceled,
         subscriptionRenewalDate: new Date(subscription.current_period_end * 1000),
         ...(isCanceled && {
-            subscriptionCanceledAt: new Date(), // 👈 Convertendo para string
+            subscriptionCanceledAt: new Date(), 
             latestInvoiceId: null
         })
     });
