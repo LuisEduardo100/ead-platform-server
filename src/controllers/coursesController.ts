@@ -28,7 +28,7 @@ export const coursesController = {
                         }
                     });
                     const isWatching = watchTime
-                        ? watchTime.seconds > (episode.secondsLong * 0.5)
+                        ? watchTime.seconds > (episode.secondsLong * 0.7)
                         : false;
                     return {
                         isWatching,

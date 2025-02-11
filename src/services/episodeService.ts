@@ -42,26 +42,26 @@ export const episodeService = {
       fs.createReadStream(filePath).pipe(res)
     }
   },
-  getEpisodeWithQuizz: async (episodeId: number)=> {
+  getEpisodeWithQuizz: async (episodeId: number) => {
     const episodeWithQuizz = await Episode.findByPk(episodeId, {
-        attributes: ['id', 'name', ['course_id', 'courseId']],
-        include: {
-            model: Question,
-            as: 'Quizzes',
-            attributes: [
-                'order',
-                'question',
-                'answers',
-                ['file_url', 'fileUrl'],
-                ['correct_answer', 'correctAnswer'],
-                'serie',
-                'dificuldade',
-            ]
-        }
+      attributes: ['id', 'name', ['course_id', 'courseId']],
+      include: {
+        model: Question,
+        as: 'Quizzes',
+        attributes: [
+          'order',
+          'question',
+          'answers',
+          ['file_url', 'fileUrl'],
+          ['correct_answer', 'correctAnswer'],
+          'serie',
+          'dificuldade',
+        ]
+      }
     })
     return episodeWithQuizz
-},
-  findEpisodeWithFiles: async(id: number | string)=>{
+  },
+  findEpisodeWithFiles: async (id: number | string) => {
     const episodeWithFiles = await Episode.findByPk(id, {
       attributes: ['id', 'name', 'secondsLong', 'courseId', 'order', ['video_url', 'videoUrl']],
       include: {
@@ -88,24 +88,31 @@ export const episodeService = {
     return watchTime
   },
   setWatchTime: async (userId: number, episodeId: number, seconds: number) => {
-    const watchTimeAlreadyExists = await WatchTime.findOne({
-      where: {
-        userId,
-        episodeId
-      }
-    })
+    try {
+      // Busca o registro existente para esse usuário e episódio
+      const existingWatchTime = await WatchTime.findOne({
+        where: {
+          userId,
+          episodeId
+        }
+      });
 
-    if (watchTimeAlreadyExists) {
-      watchTimeAlreadyExists.seconds = seconds
-      await watchTimeAlreadyExists.save()
-      return watchTimeAlreadyExists
-    } else {
-      const newWatchTime = await WatchTime.create({
-        userId,
-        episodeId,
-        seconds
-      })
-      return newWatchTime
+      if (existingWatchTime) {
+        if (seconds > existingWatchTime.seconds * 0.7) {
+          existingWatchTime.seconds = seconds;
+          await existingWatchTime.save();
+        }
+        return existingWatchTime;
+      } else {
+        const newWatchTime = await WatchTime.create({
+          userId,
+          episodeId,
+          seconds
+        });
+        return newWatchTime;
+      }
+    } catch (error) {
+      throw error;
     }
   }
 }
