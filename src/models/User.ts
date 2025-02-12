@@ -47,7 +47,7 @@ export const User = database.define<UserInstance, UserAttributes>('users', {
   },
   serie: {
     allowNull: false,
-    type: DataTypes.ENUM('6º ano', '7º ano', '8º ano', '9º ano')
+    type: DataTypes.ENUM('6º ano', '7º ano', '8º ano', '9º ano', "1º ano", "2º ano", "3º ano")
   },
   firstName: {
     allowNull: false,

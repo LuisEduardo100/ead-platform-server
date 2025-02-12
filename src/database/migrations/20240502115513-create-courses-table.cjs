@@ -23,7 +23,7 @@ module.exports = {
       },
       serie: {
         allowNull: false,
-        type: Sequelize.DataTypes.ENUM("6º ano", "7º ano", "8º ano", "9º ano")
+        type: Sequelize.DataTypes.ENUM("6º ano", "7º ano", "8º ano", "9º ano", "1º ano", "2º ano", "3º ano")
       },
       thumbnail_url: {
         type: Sequelize.DataTypes.STRING
